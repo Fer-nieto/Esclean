@@ -1,0 +1,28 @@
+﻿<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="Esclean.Views.Stencils.StencilView">
+
+    <Grid>
+        <StackPanel
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+
+            <TextBlock
+                Text="CONTROL DE STENCILES"
+                FontSize="28"
+                FontWeight="Bold"
+                Foreground="{DynamicResource EscleanTextPrimary}"
+                HorizontalAlignment="Center"/>
+
+            <TextBlock
+                Text="Entrega, regreso, daño e inventario"
+                FontSize="13"
+                Foreground="{DynamicResource EscleanTextMuted}"
+                Margin="0,8,0,0"
+                HorizontalAlignment="Center"/>
+
+        </StackPanel>
+    </Grid>
+
+</UserControl>

@@ -1,0 +1,366 @@
+﻿<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:Esclean.ViewModels.Dashboard"
+    x:Class="Esclean.Views.Dashboard.DashboardView"
+    x:DataType="vm:DashboardViewModel">
+
+    <Grid RowDefinitions="72,14,*">
+
+        <!-- ====================================================== -->
+        <!-- HEADER DASHBOARD                                      -->
+        <!-- ====================================================== -->
+
+        <Grid Grid.Row="0"
+              ColumnDefinitions="*,135,135,135,135">
+
+
+            <StackPanel VerticalAlignment="Center">
+
+                <TextBlock
+                    Text="MONITOR DE STENCILES EN PISO"
+                    FontSize="23"
+                    FontWeight="Bold"
+                    Foreground="{DynamicResource EscleanTextPrimary}"/>
+
+
+                <TextBlock
+                    Text="Monitoreo de tiempo por línea y lado"
+                    FontSize="11"
+                    Foreground="{DynamicResource EscleanTextMuted}"
+                    Margin="0,5,0,0"/>
+
+            </StackPanel>
+
+
+            <!-- EN PISO -->
+
+            <Border Grid.Column="1"
+                    Background="{DynamicResource EscleanPanel}"
+                    BorderBrush="{DynamicResource EscleanBorder}"
+                    BorderThickness="1"
+                    CornerRadius="6"
+                    Margin="4,0"
+                    Padding="12,8">
+
+                <StackPanel>
+
+                    <TextBlock
+                        Text="EN PISO"
+                        FontSize="9"
+                        Foreground="{DynamicResource EscleanTextMuted}"
+                        HorizontalAlignment="Center"/>
+
+                    <TextBlock
+                        Text="{Binding TotalFloor}"
+                        FontSize="23"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource EscleanTextPrimary}"
+                        HorizontalAlignment="Center"/>
+
+                </StackPanel>
+
+            </Border>
+
+
+            <!-- NORMAL -->
+
+            <Border Grid.Column="2"
+                    Background="{DynamicResource EscleanPanel}"
+                    BorderBrush="{DynamicResource EscleanBorder}"
+                    BorderThickness="1"
+                    CornerRadius="6"
+                    Margin="4,0"
+                    Padding="12,8">
+
+                <StackPanel>
+
+                    <TextBlock
+                        Text="NORMAL &lt; 5H"
+                        FontSize="9"
+                        Foreground="{DynamicResource EscleanTextMuted}"
+                        HorizontalAlignment="Center"/>
+
+                    <TextBlock
+                        Text="{Binding TotalNormal}"
+                        FontSize="23"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource EscleanNormal}"
+                        HorizontalAlignment="Center"/>
+
+                </StackPanel>
+
+            </Border>
+
+
+            <!-- ALERTA -->
+
+            <Border Grid.Column="3"
+                    Background="{DynamicResource EscleanPanel}"
+                    BorderBrush="{DynamicResource EscleanBorder}"
+                    BorderThickness="1"
+                    CornerRadius="6"
+                    Margin="4,0"
+                    Padding="12,8">
+
+                <StackPanel>
+
+                    <TextBlock
+                        Text="ALERTA 5–8H"
+                        FontSize="9"
+                        Foreground="{DynamicResource EscleanTextMuted}"
+                        HorizontalAlignment="Center"/>
+
+                    <TextBlock
+                        Text="{Binding TotalWarning}"
+                        FontSize="23"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource EscleanWarning}"
+                        HorizontalAlignment="Center"/>
+
+                </StackPanel>
+
+            </Border>
+
+
+            <!-- CRITICO -->
+
+            <Border Grid.Column="4"
+                    Background="{DynamicResource EscleanPanel}"
+                    BorderBrush="{DynamicResource EscleanBorder}"
+                    BorderThickness="1"
+                    CornerRadius="6"
+                    Margin="4,0"
+                    Padding="12,8">
+
+                <StackPanel>
+
+                    <TextBlock
+                        Text="CRÍTICO ≥ 8H"
+                        FontSize="9"
+                        Foreground="{DynamicResource EscleanTextMuted}"
+                        HorizontalAlignment="Center"/>
+
+                    <TextBlock
+                        Text="{Binding TotalCritical}"
+                        FontSize="23"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource EscleanCritical}"
+                        HorizontalAlignment="Center"/>
+
+                </StackPanel>
+
+            </Border>
+
+        </Grid>
+
+
+        <!-- ====================================================== -->
+        <!-- TABLA AEROPUERTO                                      -->
+        <!-- ====================================================== -->
+
+        <Border Grid.Row="2"
+                Background="#0B1219"
+                BorderBrush="{DynamicResource EscleanBorder}"
+                BorderThickness="1"
+                CornerRadius="6">
+
+            <Grid RowDefinitions="42,*">
+
+
+                <!-- ENCABEZADO -->
+
+                <Border
+                    Grid.Row="0"
+                    Background="{DynamicResource EscleanTableHeader}"
+                    BorderBrush="{DynamicResource EscleanBorder}"
+                    BorderThickness="0,0,0,1"
+                    CornerRadius="6,6,0,0">
+
+                    <Grid
+                        Margin="14,0"
+                        ColumnDefinitions="5,80,65,170,160,105,145,145,110,*">
+
+                        <TextBlock Grid.Column="1"
+                                   Text="LÍNEA"
+                                   Classes="tableHeader"/>
+
+                        <TextBlock Grid.Column="2"
+                                   Text="LADO"
+                                   Classes="tableHeader"/>
+
+                        <TextBlock Grid.Column="3"
+                                   Text="STENCIL"
+                                   Classes="tableHeader"/>
+
+                        <TextBlock Grid.Column="4"
+                                   Text="MODELO"
+                                   Classes="tableHeader"/>
+
+                        <TextBlock Grid.Column="5"
+                                   Text="SALIDA"
+                                   Classes="tableHeader"/>
+
+                        <TextBlock Grid.Column="6"
+                                   Text="TIEMPO EN PISO"
+                                   Classes="tableHeader"/>
+
+                        <TextBlock Grid.Column="7"
+                                   Text="ESTADO"
+                                   Classes="tableHeader"/>
+
+                        <TextBlock Grid.Column="8"
+                                   Text="REQUISITOR"
+                                   Classes="tableHeader"/>
+
+                        <TextBlock Grid.Column="9"
+                                   Text="RESPONSABLE"
+                                   Classes="tableHeader"/>
+
+                    </Grid>
+
+                </Border>
+
+
+                <!-- DATOS -->
+
+                <ScrollViewer
+                    Grid.Row="1"
+                    VerticalScrollBarVisibility="Auto"
+                    HorizontalScrollBarVisibility="Disabled">
+
+                    <ItemsControl ItemsSource="{Binding ProductionSlots}">
+
+                        <ItemsControl.ItemTemplate>
+
+                            <DataTemplate>
+
+                                <Border
+                                    Height="36"
+                                    Background="{DynamicResource EscleanPanel}"
+                                    BorderBrush="{DynamicResource EscleanBorderSoft}"
+                                    BorderThickness="0,0,0,1">
+
+                                    <Grid
+                                        Margin="14,0"
+                                        ColumnDefinitions="5,80,65,170,160,105,145,145,110,*">
+
+
+                                        <!-- INDICADOR DE COLOR -->
+
+                                        <Border
+                                            Grid.Column="0"
+                                            Background="{Binding StatusColor}"
+                                            Margin="0,5"/>
+
+
+                                        <!-- LINEA -->
+
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            Text="{Binding Line}"
+                                            Classes="tableText"
+                                            FontWeight="Bold"
+                                            Margin="10,0,0,0"/>
+
+
+                                        <!-- LADO -->
+
+                                        <TextBlock
+                                            Grid.Column="2"
+                                            Text="{Binding Side}"
+                                            Classes="tableText"/>
+
+
+                                        <!-- STENCIL -->
+
+                                        <TextBlock
+                                            Grid.Column="3"
+                                            Text="{Binding StencilCode}"
+                                            Classes="tableText"
+                                            FontWeight="SemiBold"/>
+
+
+                                        <!-- MODELO -->
+
+                                        <TextBlock
+                                            Grid.Column="4"
+                                            Text="{Binding Model}"
+                                            Classes="tableText"/>
+
+
+                                        <!-- SALIDA -->
+
+                                        <TextBlock
+                                            Grid.Column="5"
+                                            Text="{Binding StartTime}"
+                                            Classes="tableText"/>
+
+
+                                        <!-- TIEMPO -->
+
+                                        <TextBlock
+                                            Grid.Column="6"
+                                            Text="{Binding ElapsedTime}"
+                                            Foreground="{Binding StatusColor}"
+                                            FontSize="16"
+                                            FontWeight="Bold"
+                                            VerticalAlignment="Center"/>
+
+
+                                        <!-- ESTADO -->
+
+                                        <StackPanel
+                                            Grid.Column="7"
+                                            Orientation="Horizontal"
+                                            VerticalAlignment="Center">
+
+                                            <Ellipse
+                                                Width="7"
+                                                Height="7"
+                                                Fill="{Binding StatusColor}"
+                                                Margin="0,0,8,0"/>
+
+                                            <TextBlock
+                                                Text="{Binding StatusText}"
+                                                Foreground="{Binding StatusColor}"
+                                                FontSize="11"
+                                                FontWeight="Bold"/>
+
+                                        </StackPanel>
+
+
+                                        <!-- REQUISITOR -->
+
+                                        <TextBlock
+                                            Grid.Column="8"
+                                            Text="{Binding Requisitor}"
+                                            Classes="tableText"/>
+
+
+                                        <!-- RESPONSABLE -->
+
+                                        <TextBlock
+                                            Grid.Column="9"
+                                            Text="{Binding Responsible}"
+                                            Classes="tableText"/>
+
+                                    </Grid>
+
+                                </Border>
+
+                            </DataTemplate>
+
+                        </ItemsControl.ItemTemplate>
+
+                    </ItemsControl>
+
+                </ScrollViewer>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</UserControl>

@@ -1,0 +1,616 @@
+<Window
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:Esclean.ViewModels"
+    x:Class="Esclean.Views.MainWindow"
+    x:DataType="vm:MainViewModel"
+
+    Title="Esclean"
+
+    Width="1600"
+    Height="850"
+
+    MinWidth="1280"
+    MinHeight="720"
+
+    WindowStartupLocation="CenterScreen"
+
+    Background="{DynamicResource EscleanBackground}">
+
+
+    <!-- ====================================================== -->
+    <!-- LAYOUT PRINCIPAL                                      -->
+    <!-- ====================================================== -->
+
+    <Grid
+        RowDefinitions="82,*,32"
+        ColumnDefinitions="230,*">
+
+
+        <!-- ====================================================== -->
+        <!-- HEADER                                                -->
+        <!-- ====================================================== -->
+
+        <Border
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+
+            Background="{DynamicResource EscleanHeader}"
+
+            BorderBrush="{DynamicResource EscleanBorder}"
+            BorderThickness="0,0,0,1">
+
+            <Grid
+                Margin="22,0"
+                ColumnDefinitions="350,*,350">
+
+
+                <!-- ================================================== -->
+                <!-- LOGO / IDENTIDAD                                   -->
+                <!-- ================================================== -->
+
+                <StackPanel
+                    Grid.Column="0"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center">
+
+
+                    <Border
+                        Width="44"
+                        Height="44"
+
+                        CornerRadius="5"
+
+                        Background="{DynamicResource EscleanIceBlueDark}"
+
+                        BorderBrush="#4E8EAD"
+                        BorderThickness="1">
+
+                        <TextBlock
+                            Text="E"
+
+                            FontSize="25"
+                            FontWeight="Bold"
+
+                            Foreground="#74D2FF"
+
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"/>
+
+                    </Border>
+
+
+                    <StackPanel
+                        Margin="12,0,0,0"
+                        VerticalAlignment="Center">
+
+                        <TextBlock
+                            Text="ESCLEAN"
+
+                            FontSize="24"
+                            FontWeight="Bold"
+
+                            Foreground="{DynamicResource EscleanTextPrimary}"/>
+
+
+                        <TextBlock
+                            Text="CLEANING ROOM CONTROL"
+
+                            FontSize="10"
+
+                            Foreground="{DynamicResource EscleanTextMuted}"
+
+                            Margin="0,2,0,0"/>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+
+                <!-- ================================================== -->
+                <!-- TITULO CENTRAL                                     -->
+                <!-- ================================================== -->
+
+                <StackPanel
+                    Grid.Column="1"
+                    VerticalAlignment="Center">
+
+
+                    <TextBlock
+                        Text="CONTROL DE HERRAMENTAL SMT"
+
+                        FontSize="16"
+                        FontWeight="SemiBold"
+
+                        Foreground="#C7D6E2"
+
+                        HorizontalAlignment="Center"/>
+
+
+                    <TextBlock
+                        Text="Stencils • Squeegees • Charolas • Trazabilidad"
+
+                        FontSize="10"
+
+                        Foreground="{DynamicResource EscleanTextMuted}"
+
+                        HorizontalAlignment="Center"
+
+                        Margin="0,4,0,0"/>
+
+                </StackPanel>
+
+
+                <!-- ================================================== -->
+                <!-- USUARIO                                            -->
+                <!-- ================================================== -->
+
+                <Grid
+                    Grid.Column="2"
+                    ColumnDefinitions="*,1,125">
+
+
+                    <!-- DATOS USUARIO -->
+
+                    <StackPanel
+                        Grid.Column="0"
+
+                        VerticalAlignment="Center"
+
+                        HorizontalAlignment="Right"
+
+                        Margin="0,0,18,0">
+
+
+                        <TextBlock
+                            Text="USUARIO DE PRUEBA"
+
+                            FontSize="12"
+                            FontWeight="Bold"
+
+                            Foreground="{DynamicResource EscleanTextPrimary}"
+
+                            HorizontalAlignment="Right"/>
+
+
+                        <TextBlock
+                            Text="Empleado 102345 • ADMIN"
+
+                            FontSize="10"
+
+                            Foreground="{DynamicResource EscleanTextMuted}"
+
+                            HorizontalAlignment="Right"
+
+                            Margin="0,3,0,0"/>
+
+                    </StackPanel>
+
+
+                    <!-- SEPARADOR -->
+
+                    <Border
+                        Grid.Column="1"
+
+                        Background="{DynamicResource EscleanBorder}"
+
+                        Margin="0,17"/>
+
+
+                    <!-- HORA / VERSION TEMPORAL -->
+
+                    <StackPanel
+                        Grid.Column="2"
+
+                        Margin="16,0,0,0"
+
+                        VerticalAlignment="Center">
+
+
+                        <TextBlock
+                            Text="ESCLEAN"
+
+                            FontSize="9"
+
+                            FontWeight="Bold"
+
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+
+                        <TextBlock
+                            Text="v1.0"
+
+                            FontSize="18"
+
+                            FontWeight="Bold"
+
+                            Foreground="{DynamicResource EscleanIceBlue}"/>
+
+                    </StackPanel>
+
+                </Grid>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- ====================================================== -->
+        <!-- MENU LATERAL                                          -->
+        <!-- ====================================================== -->
+
+        <Border
+            Grid.Row="1"
+            Grid.Column="0"
+
+            Background="{DynamicResource EscleanSidebar}"
+
+            BorderBrush="{DynamicResource EscleanBorderSoft}"
+            BorderThickness="0,0,1,0">
+
+
+            <Grid
+                RowDefinitions="Auto,*,Auto">
+
+
+                <!-- ================================================== -->
+                <!-- TITULO MENU                                        -->
+                <!-- ================================================== -->
+
+                <TextBlock
+                    Grid.Row="0"
+
+                    Text="NAVEGACIÓN"
+
+                    Margin="25,21,0,9"
+
+                    FontSize="10"
+                    FontWeight="Bold"
+
+                    Foreground="{DynamicResource EscleanTextMuted}"/>
+
+
+                <!-- ================================================== -->
+                <!-- BOTONES                                            -->
+                <!-- ================================================== -->
+
+                <StackPanel
+                    Grid.Row="1">
+
+
+                    <!-- DASHBOARD -->
+
+                    <Button
+                        Content="◉    DASHBOARD"
+
+                        Classes="nav"
+
+                        Command="{Binding ShowDashboardCommand}"/>
+
+
+                    <!-- STENCILES -->
+
+                    <Button
+                        Content="▤    STENCILES"
+
+                        Classes="nav"
+
+                        Command="{Binding ShowStencilsCommand}"/>
+
+
+                    <!-- CHAROLAS -->
+
+                    <Button
+                        Content="▦    CHAROLAS"
+
+                        Classes="nav"
+
+                        Command="{Binding ShowTraysCommand}"/>
+
+
+                    <!-- SQUEEGEES -->
+
+                    <Button
+                        Content="⇆    SQUEEGEES"
+
+                        Classes="nav"
+
+                        Command="{Binding ShowSqueegeesCommand}"/>
+
+
+                    <!-- REPORTES -->
+
+                    <Button
+                        Content="▥    REPORTES"
+
+                        Classes="nav"
+
+                        Command="{Binding ShowReportsCommand}"/>
+
+
+                    <!-- CONFIGURACION -->
+
+                    <Button
+                        Content="⚙    CONFIGURACIÓN"
+
+                        Classes="nav"
+
+                        Command="{Binding ShowSettingsCommand}"/>
+
+                </StackPanel>
+
+
+                <!-- ================================================== -->
+                <!-- ESTADO SISTEMA                                     -->
+                <!-- ================================================== -->
+
+                <StackPanel
+                    Grid.Row="2"
+
+                    Margin="12,0,12,18">
+
+
+                    <Border
+                        Background="#101A23"
+
+                        BorderBrush="{DynamicResource EscleanBorderSoft}"
+                        BorderThickness="1"
+
+                        CornerRadius="5"
+
+                        Padding="12"
+
+                        Margin="0,0,0,10">
+
+
+                        <StackPanel>
+
+
+                            <StackPanel
+                                Orientation="Horizontal">
+
+
+                                <Ellipse
+                                    Width="7"
+                                    Height="7"
+
+                                    Fill="{DynamicResource EscleanNormal}"
+
+                                    VerticalAlignment="Center"
+
+                                    Margin="0,0,7,0"/>
+
+
+                                <TextBlock
+                                    Text="SISTEMA"
+
+                                    Foreground="{DynamicResource EscleanNormal}"
+
+                                    FontSize="10"
+                                    FontWeight="Bold"/>
+
+                            </StackPanel>
+
+
+                            <TextBlock
+                                Text="DATOS DE PRUEBA"
+
+                                Foreground="{DynamicResource EscleanTextMuted}"
+
+                                FontSize="10"
+
+                                Margin="14,5,0,0"/>
+
+
+                            <TextBlock
+                                Text="Sin conexión a PostgREST"
+
+                                Foreground="#536879"
+
+                                FontSize="9"
+
+                                Margin="14,2,0,0"/>
+
+                        </StackPanel>
+
+                    </Border>
+
+
+                    <!-- SALIR -->
+
+                    <Button
+                        Content="SALIR"
+
+                        Height="40"
+
+                        Background="#261416"
+
+                        Foreground="#FF8080"
+
+                        BorderBrush="#653238"
+                        BorderThickness="1"
+
+                        CornerRadius="4"
+
+                        FontWeight="Bold"/>
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- ====================================================== -->
+        <!-- CONTENIDO DINAMICO                                    -->
+        <!-- ====================================================== -->
+
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+
+            Background="{DynamicResource EscleanBackground}"
+
+            Padding="18">
+
+
+            <Grid
+                RowDefinitions="Auto,*">
+
+
+                <!-- ================================================== -->
+                <!-- BARRA SUPERIOR DE SECCION                          -->
+                <!-- ================================================== -->
+
+                <Grid
+                    Grid.Row="0"
+
+                    ColumnDefinitions="*,Auto"
+
+                    Margin="0,0,0,12">
+
+
+                    <StackPanel
+                        Grid.Column="0">
+
+
+                        <TextBlock
+                            Text="{Binding CurrentSection}"
+
+                            FontSize="10"
+
+                            FontWeight="Bold"
+
+                            Foreground="{DynamicResource EscleanIceBlue}"/>
+
+
+                        <Border
+                            Width="36"
+                            Height="2"
+
+                            Margin="0,5,0,0"
+
+                            HorizontalAlignment="Left"
+
+                            Background="{DynamicResource EscleanIceBlue}"/>
+
+                    </StackPanel>
+
+
+                    <TextBlock
+                        Grid.Column="1"
+
+                        Text="ESCLEAN / CLEANING ROOM"
+
+                        FontSize="9"
+
+                        Foreground="{DynamicResource EscleanTextMuted}"
+
+                        VerticalAlignment="Center"/>
+
+                </Grid>
+
+
+                <!-- ================================================== -->
+                <!-- VIEW ACTIVA                                        -->
+                <!-- ================================================== -->
+
+                <Border
+                    Grid.Row="1"
+
+                    Background="Transparent">
+
+
+                    <ContentControl
+                        Content="{Binding CurrentView}"
+
+                        HorizontalContentAlignment="Stretch"
+
+                        VerticalContentAlignment="Stretch"/>
+
+                </Border>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- ====================================================== -->
+        <!-- FOOTER                                                -->
+        <!-- ====================================================== -->
+
+        <Border
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+
+            Background="#0B1219"
+
+            BorderBrush="{DynamicResource EscleanBorderSoft}"
+            BorderThickness="0,1,0,0">
+
+
+            <Grid
+                Margin="18,0"
+
+                ColumnDefinitions="*,Auto">
+
+
+                <!-- ESTADO -->
+
+                <StackPanel
+                    Grid.Column="0"
+
+                    Orientation="Horizontal"
+
+                    VerticalAlignment="Center">
+
+
+                    <Ellipse
+                        Width="7"
+                        Height="7"
+
+                        Fill="{DynamicResource EscleanNormal}"
+
+                        Margin="0,0,7,0"/>
+
+
+                    <TextBlock
+                        Text="Esclean operativo"
+
+                        FontSize="10"
+
+                        Foreground="{DynamicResource EscleanTextMuted}"/>
+
+
+                    <TextBlock
+                        Text="   •   Ambiente de desarrollo"
+
+                        FontSize="10"
+
+                        Foreground="#506273"/>
+
+                </StackPanel>
+
+
+                <!-- VERSION -->
+
+                <TextBlock
+                    Grid.Column="1"
+
+                    Text="ESCLEAN 1.0 • Cleaning Room Control"
+
+                    FontSize="10"
+
+                    Foreground="{DynamicResource EscleanTextMuted}"
+
+                    VerticalAlignment="Center"/>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</Window>

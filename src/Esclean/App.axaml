@@ -1,0 +1,31 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:Esclean"
+             x:Class="Esclean.App"
+             RequestedThemeVariant="Dark">
+
+    <!-- ====================================================== -->
+    <!-- VIEW LOCATOR                                          -->
+    <!-- Convierte ViewModels automáticamente en Views          -->
+    <!-- ====================================================== -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+
+
+    <!-- ====================================================== -->
+    <!-- ESTILOS                                               -->
+    <!-- ====================================================== -->
+
+    <Application.Styles>
+
+        <FluentTheme/>
+
+        <StyleInclude Source="avares://Esclean/Themes/Colors.axaml"/>
+
+        <StyleInclude Source="avares://Esclean/Themes/Controls.axaml"/>
+
+    </Application.Styles>
+
+</Application>

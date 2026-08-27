@@ -1,0 +1,39 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Styles.Resources>
+
+        <!-- ====================================================== -->
+        <!-- ESCLEAN - PALETA METÁLICA FRÍA                        -->
+        <!-- ====================================================== -->
+
+        <!-- Fondos -->
+        <SolidColorBrush x:Key="EscleanBackground">#090E14</SolidColorBrush>
+        <SolidColorBrush x:Key="EscleanSidebar">#0D141D</SolidColorBrush>
+        <SolidColorBrush x:Key="EscleanPanel">#111A24</SolidColorBrush>
+        <SolidColorBrush x:Key="EscleanPanelAlt">#0E1720</SolidColorBrush>
+        <SolidColorBrush x:Key="EscleanHeader">#101922</SolidColorBrush>
+        <SolidColorBrush x:Key="EscleanTableHeader">#172330</SolidColorBrush>
+
+        <!-- Bordes -->
+        <SolidColorBrush x:Key="EscleanBorder">#304153</SolidColorBrush>
+        <SolidColorBrush x:Key="EscleanBorderSoft">#22303D</SolidColorBrush>
+
+        <!-- Texto -->
+        <SolidColorBrush x:Key="EscleanTextPrimary">#E8EEF4</SolidColorBrush>
+        <SolidColorBrush x:Key="EscleanTextSecondary">#9AAABB</SolidColorBrush>
+        <SolidColorBrush x:Key="EscleanTextMuted">#617181</SolidColorBrush>
+
+        <!-- Acento -->
+        <SolidColorBrush x:Key="EscleanIceBlue">#58BCEB</SolidColorBrush>
+        <SolidColorBrush x:Key="EscleanIceBlueDark">#142B3B</SolidColorBrush>
+
+        <!-- Estados -->
+        <SolidColorBrush x:Key="EscleanNormal">#39D98A</SolidColorBrush>
+        <SolidColorBrush x:Key="EscleanWarning">#F2C94C</SolidColorBrush>
+        <SolidColorBrush x:Key="EscleanCritical">#FF5C5C</SolidColorBrush>
+        <SolidColorBrush x:Key="EscleanAvailable">#687A8C</SolidColorBrush>
+
+    </Styles.Resources>
+
+</Styles>

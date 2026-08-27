@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Esclean/Esclean.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,103 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ====================================================== -->
+    <!-- BOTÓN DE NAVEGACIÓN                                   -->
+    <!-- ====================================================== -->
+
+    <Style Selector="Button.nav">
+
+        <Setter Property="Height" Value="48"/>
+        <Setter Property="Margin" Value="10,4"/>
+        <Setter Property="Padding" Value="18,0"/>
+
+        <Setter Property="HorizontalContentAlignment"
+                Value="Left"/>
+
+        <Setter Property="Background"
+                Value="Transparent"/>
+
+        <Setter Property="Foreground"
+                Value="{DynamicResource EscleanTextSecondary}"/>
+
+        <Setter Property="BorderBrush"
+                Value="Transparent"/>
+
+        <Setter Property="BorderThickness"
+                Value="1"/>
+
+        <Setter Property="CornerRadius"
+                Value="5"/>
+
+        <Setter Property="FontSize"
+                Value="13"/>
+
+        <Setter Property="FontWeight"
+                Value="SemiBold"/>
+
+    </Style>
+
+
+    <Style Selector="Button.nav:pointerover">
+
+        <Setter Property="Background"
+                Value="#162533"/>
+
+        <Setter Property="Foreground"
+                Value="{DynamicResource EscleanTextPrimary}"/>
+
+        <Setter Property="BorderBrush"
+                Value="{DynamicResource EscleanBorder}"/>
+
+    </Style>
+
+
+    <Style Selector="Button.nav.active">
+
+        <Setter Property="Background"
+                Value="{DynamicResource EscleanIceBlueDark}"/>
+
+        <Setter Property="Foreground"
+                Value="#EAF8FF"/>
+
+        <Setter Property="BorderBrush"
+                Value="#3E7C9C"/>
+
+    </Style>
+
+
+    <!-- ====================================================== -->
+    <!-- TEXTOS DE TABLA                                       -->
+    <!-- ====================================================== -->
+
+    <Style Selector="TextBlock.tableHeader">
+
+        <Setter Property="Foreground"
+                Value="#91A5B8"/>
+
+        <Setter Property="FontSize"
+                Value="11"/>
+
+        <Setter Property="FontWeight"
+                Value="Bold"/>
+
+        <Setter Property="VerticalAlignment"
+                Value="Center"/>
+
+    </Style>
+
+
+    <Style Selector="TextBlock.tableText">
+
+        <Setter Property="Foreground"
+                Value="#C8D4DE"/>
+
+        <Setter Property="FontSize"
+                Value="12"/>
+
+        <Setter Property="VerticalAlignment"
+                Value="Center"/>
+
+    </Style>
+
+</Styles>
