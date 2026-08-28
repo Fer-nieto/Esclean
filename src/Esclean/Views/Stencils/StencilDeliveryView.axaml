@@ -1,0 +1,455 @@
+﻿<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:Esclean.ViewModels.Stencils"
+    xmlns:models="using:Esclean.Models.Stencils"
+    x:Class="Esclean.Views.Stencils.StencilDeliveryView"
+    x:DataType="vm:StencilDeliveryViewModel">
+
+    <Grid
+        RowDefinitions="Auto,Auto,*"
+        RowSpacing="14">
+
+
+        <!-- ================================================= -->
+        <!-- HEADER                                            -->
+        <!-- ================================================= -->
+
+        <Grid
+            Grid.Row="0"
+            ColumnDefinitions="*,Auto">
+
+            <StackPanel>
+
+                <TextBlock
+                    Text="ENTREGA / REGRESO DE STENCILES"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Foreground="{DynamicResource EscleanTextPrimary}"/>
+
+                <TextBlock
+                    Text="Registro y consulta de movimientos de herramental"
+                    FontSize="11"
+                    Foreground="{DynamicResource EscleanTextMuted}"
+                    Margin="0,4,0,0"/>
+
+            </StackPanel>
+
+
+            <Button
+                Grid.Column="1"
+                Content="↻ ACTUALIZAR"
+                Command="{Binding LoadLastMovementsCommand}"
+                VerticalAlignment="Center"
+                Padding="18,9"/>
+
+        </Grid>
+
+
+
+        <!-- ================================================= -->
+        <!-- ÁREA DE CAPTURA                                   -->
+        <!-- ================================================= -->
+
+        <Grid
+            Grid.Row="1"
+            ColumnDefinitions="2*,1.2*"
+            ColumnSpacing="14">
+
+
+            <!-- ============================================= -->
+            <!-- FORMULARIO                                    -->
+            <!-- ============================================= -->
+
+            <Border
+                Grid.Column="0"
+                Background="#111B24"
+                BorderBrush="{DynamicResource EscleanBorderSoft}"
+                BorderThickness="1"
+                CornerRadius="6"
+                Padding="18">
+
+                <Grid
+                    RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+                    RowSpacing="15">
+
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Text="REGISTRAR MOVIMIENTO"
+                        FontSize="14"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource EscleanTextPrimary}"/>
+
+
+                    <!-- STEEL -->
+
+                    <Grid
+                        Grid.Row="1"
+                        ColumnDefinitions="*,Auto"
+                        ColumnSpacing="8">
+
+                        <StackPanel>
+
+                            <TextBlock
+                                Text="STEEL NO."
+                                FontSize="10"
+                                FontWeight="SemiBold"
+                                Foreground="{DynamicResource EscleanTextMuted}"
+                                Margin="0,0,0,5"/>
+
+                            <TextBox
+                                Text="{Binding SteelNo}"
+                                PlaceholderText="Escanear o capturar stencil..."
+                                Height="38"/>
+
+                        </StackPanel>
+
+
+                        <Button
+                            Grid.Column="1"
+                            Content="BUSCAR"
+                            Command="{Binding SearchStencilCommand}"
+                            VerticalAlignment="Bottom"
+                            Height="38"
+                            Padding="18,0"/>
+
+                    </Grid>
+
+
+
+                    <!-- REQUISITOR / LINEA -->
+
+                    <Grid
+                        Grid.Row="2"
+                        ColumnDefinitions="*,*"
+                        ColumnSpacing="12">
+
+                        <StackPanel
+                            Grid.Column="0">
+
+                            <TextBlock
+                                Text="REQUISITOR"
+                                FontSize="10"
+                                FontWeight="SemiBold"
+                                Foreground="{DynamicResource EscleanTextMuted}"
+                                Margin="0,0,0,5"/>
+
+                            <TextBox
+                                Text="{Binding Requisitor}"
+                                PlaceholderText="Número de empleado"
+                                Height="38"/>
+
+                        </StackPanel>
+
+
+                        <StackPanel
+                            Grid.Column="1">
+
+                            <TextBlock
+                                Text="LÍNEA"
+                                FontSize="10"
+                                FontWeight="SemiBold"
+                                Foreground="{DynamicResource EscleanTextMuted}"
+                                Margin="0,0,0,5"/>
+
+                            <ComboBox
+                                ItemsSource="{Binding Lines}"
+                                SelectedItem="{Binding SelectedLine}"
+                                Height="38"/>
+
+                        </StackPanel>
+
+                    </Grid>
+
+
+
+                    <!-- TIPO MOVIMIENTO -->
+
+                    <Grid
+                        Grid.Row="3"
+                        ColumnDefinitions="*,*"
+                        ColumnSpacing="10">
+
+                        <Button
+                            Grid.Column="0"
+                            Content="↑  SALIDA A PRODUCCIÓN"
+                            Command="{Binding SelectOutCommand}"
+                            Height="46"/>
+
+                        <Button
+                            Grid.Column="1"
+                            Content="↓  REGRESO A CLEANING"
+                            Command="{Binding SelectInCommand}"
+                            Height="46"/>
+
+                    </Grid>
+
+
+
+                    <!-- COMENTARIOS -->
+
+                    <Grid
+                        Grid.Row="4"
+                        RowDefinitions="Auto,Auto,Auto"
+                        RowSpacing="7">
+
+                        <TextBlock
+                            Grid.Row="0"
+                            Text="COMENTARIOS"
+                            FontSize="10"
+                            FontWeight="SemiBold"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                        <TextBox
+                            Grid.Row="1"
+                            Text="{Binding Comments}"
+                            PlaceholderText="Comentarios opcionales..."
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            MinHeight="65"/>
+
+                        <Button
+                            Grid.Row="2"
+                            Content="CONFIRMAR MOVIMIENTO"
+                            Command="{Binding ConfirmCommand}"
+                            HorizontalAlignment="Stretch"
+                            Height="45"
+                            Margin="0,5,0,0"/>
+
+                    </Grid>
+
+                </Grid>
+
+            </Border>
+
+
+
+            <!-- ============================================= -->
+            <!-- INFORMACIÓN STENCIL                           -->
+            <!-- ============================================= -->
+
+            <Border
+                Grid.Column="1"
+                Background="#0F1820"
+                BorderBrush="{DynamicResource EscleanBorderSoft}"
+                BorderThickness="1"
+                CornerRadius="6"
+                Padding="18">
+
+                <Grid
+                    RowDefinitions="Auto,Auto,*"
+                    RowSpacing="15">
+
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Text="INFORMACIÓN DEL STENCIL"
+                        FontSize="14"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource EscleanTextPrimary}"/>
+
+
+                    <Grid
+                        Grid.Row="1"
+                        ColumnDefinitions="Auto,*"
+                        RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+                        ColumnSpacing="18"
+                        RowSpacing="12">
+
+
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Text="Movimiento:"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Text="{Binding MovementType}"
+                            FontWeight="Bold"/>
+
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Text="Modelo:"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Text="{Binding StencilModel}"
+                            FontWeight="SemiBold"/>
+
+
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Text="Lado:"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Text="{Binding StencilSide}"
+                            FontWeight="SemiBold"/>
+
+
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Text="Ubicación:"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Text="{Binding CurrentLocation}"
+                            FontWeight="SemiBold"/>
+
+
+                        <TextBlock
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            Text="Estado:"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                        <TextBlock
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Text="{Binding StencilStatus}"
+                            FontWeight="Bold"/>
+
+                    </Grid>
+
+
+                    <!-- MENSAJE -->
+
+                    <Border
+                        Grid.Row="2"
+                        Background="#15222C"
+                        BorderBrush="#304653"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="12"
+                        VerticalAlignment="Bottom">
+
+                        <TextBlock
+                            Text="{Binding Message}"
+                            TextWrapping="Wrap"
+                            Foreground="#AFC4CF"/>
+
+                    </Border>
+
+                </Grid>
+
+            </Border>
+
+        </Grid>
+
+
+
+        <!-- ================================================= -->
+        <!-- ÚLTIMOS MOVIMIENTOS                               -->
+        <!-- ================================================= -->
+
+        <Border
+            Grid.Row="2"
+            Background="#0D151C"
+            BorderBrush="{DynamicResource EscleanBorderSoft}"
+            BorderThickness="1"
+            CornerRadius="6"
+            Padding="14">
+
+            <Grid
+                RowDefinitions="Auto,*"
+                RowSpacing="10">
+
+
+                <Grid
+                    Grid.Row="0"
+                    ColumnDefinitions="*,Auto">
+
+                    <StackPanel>
+
+                        <TextBlock
+                            Text="ÚLTIMOS MOVIMIENTOS"
+                            FontSize="14"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource EscleanTextPrimary}"/>
+
+                        <TextBlock
+                            Text="Últimos 20 registros recibidos desde la API"
+                            FontSize="10"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                    </StackPanel>
+
+                </Grid>
+
+
+                <DataGrid
+                    Grid.Row="1"
+                    ItemsSource="{Binding LastMovements}"
+                    AutoGenerateColumns="False"
+                    IsReadOnly="True"
+                    CanUserResizeColumns="True"
+                    GridLinesVisibility="Horizontal"
+                    HeadersVisibility="Column"
+                    SelectionMode="Single">
+
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn
+                            Header="ID MOV."
+                            Binding="{Binding IdMovement}"
+                            Width="120"/>
+
+                        <DataGridTextColumn
+                            Header="FECHA / HORA"
+                            Binding="{Binding DateText}"
+                            Width="160"/>
+
+                        <DataGridTextColumn
+                            Header="STEEL NO."
+                            Binding="{Binding SteelNo}"
+                            Width="140"/>
+
+                        <DataGridTextColumn
+                            Header="MOVIMIENTO"
+                            Binding="{Binding MovementType}"
+                            Width="130"/>
+
+                        <DataGridTextColumn
+                            Header="LÍNEA"
+                            Binding="{Binding Line}"
+                            Width="90"/>
+
+                        <DataGridTextColumn
+                            Header="LADO"
+                            Binding="{Binding Side}"
+                            Width="80"/>
+
+                        <DataGridTextColumn
+                            Header="REQUISITOR"
+                            Binding="{Binding Requisitor}"
+                            Width="120"/>
+
+                        <DataGridTextColumn
+                            Header="ESTADO"
+                            Binding="{Binding Status}"
+                            Width="*"/>
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</UserControl>

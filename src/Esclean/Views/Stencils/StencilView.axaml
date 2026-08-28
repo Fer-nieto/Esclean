@@ -1,28 +1,86 @@
 ﻿<UserControl
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    x:Class="Esclean.Views.Stencils.StencilView">
+    xmlns:vm="using:Esclean.ViewModels.Stencils"
+    x:Class="Esclean.Views.Stencils.StencilView"
+    x:DataType="vm:StencilViewModel">
 
-    <Grid>
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <!-- ENCABEZADO -->
+
         <StackPanel
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center">
+            Grid.Row="0"
+            Margin="0,0,0,18">
 
             <TextBlock
                 Text="CONTROL DE STENCILES"
-                FontSize="28"
+                FontSize="26"
                 FontWeight="Bold"
-                Foreground="{DynamicResource EscleanTextPrimary}"
-                HorizontalAlignment="Center"/>
+                Foreground="{DynamicResource EscleanTextPrimary}"/>
 
             <TextBlock
-                Text="Entrega, regreso, daño e inventario"
-                FontSize="13"
+                Text="Gestión de entregas, daños e inventario"
+                FontSize="12"
                 Foreground="{DynamicResource EscleanTextMuted}"
-                Margin="0,8,0,0"
-                HorizontalAlignment="Center"/>
+                Margin="0,4,0,0"/>
 
         </StackPanel>
+
+
+        <!-- SUBMENU -->
+
+        <Border
+            Grid.Row="1"
+            Background="#111B24"
+            BorderBrush="{DynamicResource EscleanBorderSoft}"
+            BorderThickness="1"
+            CornerRadius="5"
+            Padding="5"
+            Margin="0,0,0,14">
+
+            <Grid ColumnDefinitions="*,*,*">
+
+                <Button
+                    Grid.Column="0"
+                    Content="ENTREGAS"
+                    Command="{Binding ShowDeliveryCommand}"
+                    Height="42"
+                    Margin="2"/>
+
+                <Button
+                    Grid.Column="1"
+                    Content="REPORTES DE DAÑO"
+                    Command="{Binding ShowDamageReportCommand}"
+                    Height="42"
+                    Margin="2"/>
+
+                <Button
+                    Grid.Column="2"
+                    Content="INVENTARIO"
+                    Command="{Binding ShowInventoryCommand}"
+                    Height="42"
+                    Margin="2"/>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- CONTENIDO -->
+
+        <Border
+            Grid.Row="2"
+            Background="#0D151C"
+            BorderBrush="{DynamicResource EscleanBorderSoft}"
+            BorderThickness="1"
+            CornerRadius="5">
+
+            <ContentControl
+                Content="{Binding CurrentStencilView}"/>
+
+        </Border>
+
     </Grid>
 
 </UserControl>

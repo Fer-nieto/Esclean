@@ -1,16 +1,30 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+
+using Esclean.Services.Api.Stencils;
+
 using Esclean.ViewModels.Dashboard;
-using Esclean.ViewModels.Reports;
-using Esclean.ViewModels.Settings;
-using Esclean.ViewModels.Squeegees;
 using Esclean.ViewModels.Stencils;
 using Esclean.ViewModels.Trays;
+using Esclean.ViewModels.Squeegees;
+using Esclean.ViewModels.Reports;
+using Esclean.ViewModels.Settings;
 
 namespace Esclean.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
+    // =========================================================
+    // SERVICIOS
+    // =========================================================
+
+    private readonly IStencilApiService _stencilApiService;
+
+
+    // =========================================================
+    // MÓDULOS
+    // =========================================================
+
     public DashboardViewModel Dashboard { get; }
 
     public StencilViewModel Stencils { get; }
@@ -24,76 +38,174 @@ public partial class MainViewModel : ViewModelBase
     public SettingsViewModel Settings { get; }
 
 
+    // =========================================================
+    // VISTA ACTUAL
+    // =========================================================
+
     [ObservableProperty]
     private ViewModelBase currentView;
 
 
     [ObservableProperty]
-    private string currentSection = "Dashboard";
+    private string currentSection =
+        "DASHBOARD";
 
+
+    // =========================================================
+    // CONSTRUCTOR
+    // =========================================================
 
     public MainViewModel()
     {
-        Dashboard = new DashboardViewModel();
+        // =====================================================
+        // SERVICIO TEMPORAL
+        // =====================================================
+        //
+        // Actualmente utilizamos un servicio Mock para poder
+        // desarrollar y validar la interfaz sin PostgreSQL.
+        //
+        // Flujo futuro:
+        //
+        // Avalonia
+        //      ↓
+        // StencilApiService
+        //      ↓
+        // HTTP
+        //      ↓
+        // PostgREST
+        //      ↓
+        // PostgreSQL
+        //
+        // =====================================================
 
-        Stencils = new StencilViewModel();
+        _stencilApiService =
+            new MockStencilApiService();
 
-        Trays = new TrayViewModel();
 
-        Squeegees = new SqueegeeViewModel();
+        // =====================================================
+        // CREAR MÓDULOS
+        // =====================================================
 
-        Reports = new ReportsViewModel();
+        Dashboard =
+            new DashboardViewModel();
 
-        Settings = new SettingsViewModel();
 
-        CurrentView = Dashboard;
+        Stencils =
+            new StencilViewModel(
+                _stencilApiService);
+
+
+        Trays =
+            new TrayViewModel();
+
+
+        Squeegees =
+            new SqueegeeViewModel();
+
+
+        Reports =
+            new ReportsViewModel();
+
+
+        Settings =
+            new SettingsViewModel();
+
+
+        // =====================================================
+        // VISTA INICIAL
+        // =====================================================
+
+        currentView =
+            Dashboard;
     }
 
+
+    // =========================================================
+    // DASHBOARD
+    // =========================================================
 
     [RelayCommand]
     private void ShowDashboard()
     {
-        CurrentView = Dashboard;
-        CurrentSection = "Dashboard";
+        CurrentView =
+            Dashboard;
+
+        CurrentSection =
+            "DASHBOARD";
     }
 
+
+    // =========================================================
+    // STENCILES
+    // =========================================================
 
     [RelayCommand]
     private void ShowStencils()
     {
-        CurrentView = Stencils;
-        CurrentSection = "Stencils";
+        CurrentView =
+            Stencils;
+
+        CurrentSection =
+            "STENCILES";
     }
 
+
+    // =========================================================
+    // CHAROLAS
+    // =========================================================
 
     [RelayCommand]
     private void ShowTrays()
     {
-        CurrentView = Trays;
-        CurrentSection = "Trays";
+        CurrentView =
+            Trays;
+
+        CurrentSection =
+            "CHAROLAS";
     }
 
+
+    // =========================================================
+    // SQUEEGEES
+    // =========================================================
 
     [RelayCommand]
     private void ShowSqueegees()
     {
-        CurrentView = Squeegees;
-        CurrentSection = "Squeegees";
+        CurrentView =
+            Squeegees;
+
+        CurrentSection =
+            "SQUEEGEES";
     }
 
+
+    // =========================================================
+    // REPORTES
+    // =========================================================
 
     [RelayCommand]
     private void ShowReports()
     {
-        CurrentView = Reports;
-        CurrentSection = "Reports";
+        CurrentView =
+            Reports;
+
+        CurrentSection =
+            "REPORTES";
     }
 
+
+    // =========================================================
+    // CONFIGURACIÓN
+    // =========================================================
 
     [RelayCommand]
     private void ShowSettings()
     {
-        CurrentView = Settings;
-        CurrentSection = "Settings";
+        CurrentView =
+            Settings;
+
+        CurrentSection =
+            "CONFIGURACIÓN";
     }
 }
