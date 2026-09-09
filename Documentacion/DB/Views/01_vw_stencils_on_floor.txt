@@ -1,0 +1,51 @@
+﻿CREATE OR REPLACE VIEW public.vw_stencils_on_floor AS
+SELECT
+    s.id_stencil,
+    s.steel_no,
+    s.name,
+    s.side,
+    s.product_name,
+    s.use_model,
+
+    pl.id_line,
+    pl.code AS line_code,
+    pl.name AS line_name,
+
+    sm.requested_by,
+    u.employee_number AS requested_by_employee_number,
+    u.name AS requested_by_name,
+
+    sm.movement_at AS out_at,
+
+    NOW() - sm.movement_at AS elapsed_time,
+
+    EXTRACT(
+        EPOCH FROM (NOW() - sm.movement_at)
+    ) / 60 AS elapsed_minutes
+
+FROM public.stencils AS s
+
+INNER JOIN public.locations AS l
+    ON l.id_location = s.id_location
+
+INNER JOIN LATERAL
+(
+    SELECT
+        sm1.id_line,
+        sm1.requested_by,
+        sm1.movement_at
+    FROM public.stencil_movements AS sm1
+    WHERE sm1.id_stencil = s.id_stencil
+      AND sm1.destination_location_id = s.id_location
+    ORDER BY sm1.movement_at DESC
+    LIMIT 1
+) AS sm
+    ON TRUE
+
+LEFT JOIN public.production_lines AS pl
+    ON pl.id_line = sm.id_line
+
+LEFT JOIN public.users AS u
+    ON u.id_user = sm.requested_by
+
+WHERE l.code = 'PISO';

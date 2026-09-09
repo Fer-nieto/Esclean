@@ -1,0 +1,22 @@
+﻿CREATE OR REPLACE VIEW public.vw_stencil_damage_evidence AS
+SELECT
+    de.id_evidence,
+    de.id_report,
+
+    dr.id_stencil,
+    s.steel_no,
+    s.name AS stencil_name,
+
+    de.file_name,
+    de.storage_path,
+    de.uploaded_at,
+
+    dr.reported_at
+
+FROM public.stencil_damage_evidence AS de
+
+INNER JOIN public.stencil_damage_reports AS dr
+    ON dr.id_report = de.id_report
+
+INNER JOIN public.stencils AS s
+    ON s.id_stencil = dr.id_stencil;

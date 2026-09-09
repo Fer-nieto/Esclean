@@ -1,0 +1,14 @@
+﻿|  # | Vista                                | Propósito                                                                             |
+| -: | ------------------------------------ | ------------------------------------------------------------------------------------- |
+|  1 | `vw_stencil_inventory`               | Inventario de esténciles con nombres legibles de ubicación y datos de filtro.         |
+|  2 | `vw_stencils_on_floor`               | Esténciles actualmente en piso/producción y tiempo transcurrido.                      |
+|  3 | `vw_stencil_movement_history`        | Histórico de movimientos de esténciles con usuario, línea, origen y destino legibles. |
+|  4 | `vw_stencil_damage_history`          | Histórico de daños con datos del esténcil, usuario y línea.                           |
+|  5 | `vw_stencil_damage_evidence`         | Evidencias/fotos asociadas a cada reporte de daño.                                    |
+|  6 | `vw_active_stencil_washes`           | Esténciles actualmente en lavado (`finished_at IS NULL`).                             |
+|  7 | `vw_stencil_wash_history`            | Histórico de lavados con duración calculada.                                          |
+|  8 | `vw_tray_inventory`                  | Inventario actual de charolas por ubicación.                                          |
+|  9 | `vw_tray_movement_history`           | Histórico de movimientos y scrap de charolas.                                         |
+| 10 | `vw_squeegee_holders`                | Consulta del inventario estático de porta navajas.                                    |
+| 11 | `vw_squeegee_blade_inventory`        | Inventario actual de navajas y estado respecto al mínimo.                             |
+| 12 | `vw_squeegee_blade_movement_history` | Histórico de entradas, salidas y scrap de navajas.                                    |

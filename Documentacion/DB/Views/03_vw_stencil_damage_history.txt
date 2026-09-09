@@ -1,0 +1,35 @@
+﻿CREATE OR REPLACE VIEW public.vw_stencil_damage_history AS
+SELECT
+    dr.id_report,
+
+    dr.id_stencil,
+    s.steel_no,
+    s.name AS stencil_name,
+    s.stencil_type,
+    s.side,
+    s.product_name,
+    s.use_model,
+
+    dr.damage_type,
+    dr.description,
+
+    dr.id_line,
+    pl.code AS line_code,
+    pl.name AS line_name,
+
+    dr.reported_by,
+    u.employee_number AS reported_by_employee_number,
+    u.name AS reported_by_name,
+
+    dr.reported_at
+
+FROM public.stencil_damage_reports AS dr
+
+INNER JOIN public.stencils AS s
+    ON s.id_stencil = dr.id_stencil
+
+INNER JOIN public.users AS u
+    ON u.id_user = dr.reported_by
+
+LEFT JOIN public.production_lines AS pl
+    ON pl.id_line = dr.id_line;

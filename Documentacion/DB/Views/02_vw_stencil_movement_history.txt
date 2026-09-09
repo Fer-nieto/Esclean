@@ -1,0 +1,56 @@
+﻿CREATE OR REPLACE VIEW public.vw_stencil_movement_history AS
+SELECT
+    sm.id_movement,
+
+    sm.id_stencil,
+    s.steel_no,
+    s.name AS stencil_name,
+    s.side,
+    s.product_name,
+    s.use_model,
+
+    sm.movement_type,
+
+    sm.id_line,
+    pl.code AS line_code,
+    pl.name AS line_name,
+
+    sm.origin_location_id,
+    lo.code AS origin_code,
+    lo.name AS origin_name,
+
+    sm.destination_location_id,
+    ld.code AS destination_code,
+    ld.name AS destination_name,
+
+    sm.requested_by,
+    ur.employee_number AS requested_by_employee_number,
+    ur.name AS requested_by_name,
+
+    sm.handled_by,
+    uh.employee_number AS handled_by_employee_number,
+    uh.name AS handled_by_name,
+
+    sm.comments,
+
+    sm.movement_date
+
+FROM public.stencil_movements AS sm
+
+INNER JOIN public.stencils AS s
+    ON s.id_stencil = sm.id_stencil
+
+INNER JOIN public.locations AS lo
+    ON lo.id_location = sm.origin_location_id
+
+INNER JOIN public.locations AS ld
+    ON ld.id_location = sm.destination_location_id
+
+LEFT JOIN public.production_lines AS pl
+    ON pl.id_line = sm.id_line
+
+INNER JOIN public.users AS ur
+    ON ur.id_user = sm.requested_by
+
+LEFT JOIN public.users AS uh
+    ON uh.id_user = sm.handled_by;
