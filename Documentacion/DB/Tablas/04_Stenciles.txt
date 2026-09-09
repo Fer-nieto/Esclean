@@ -1,0 +1,105 @@
+﻿CREATE TABLE public.stencils
+(
+    -- =====================================================
+    -- IDENTIFICACIÓN
+    -- =====================================================
+
+    id_stencil UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+    -- Identificador físico único del esténcil
+    steel_no VARCHAR(50) NOT NULL,
+
+    -- Nombre corto conocido por producción
+    -- Ejemplo: A230
+    name VARCHAR(100) NOT NULL,
+
+    -- Tecnología / tipo
+    -- Ejemplo: NANO, STANDARD, ELECTROFORM
+    stencil_type VARCHAR(50),
+
+    -- TOP / BOT
+    side VARCHAR(10) NOT NULL,
+
+
+    -- =====================================================
+    -- PRODUCTO / FILTRADO
+    -- =====================================================
+
+    -- Nombre descriptivo del producto
+    -- Ejemplo: Riser K2V6-RS16U-S0
+    product_name VARCHAR(150),
+
+    -- Modelo/código alternativo utilizado para búsquedas
+    -- Ejemplo: 1A72NH300-600-G
+    use_model VARCHAR(150),
+
+    customer VARCHAR(100),
+
+
+    -- =====================================================
+    -- FABRICACIÓN / CONTROL
+    -- =====================================================
+
+    manufacturer VARCHAR(100),
+
+    manufacturing_no VARCHAR(100),
+
+    order_by VARCHAR(100),
+
+
+    -- =====================================================
+    -- ALMACENAMIENTO
+    -- =====================================================
+
+    -- Posición habitual de almacenamiento
+    -- Ejemplo: RACK-A-03
+    store_location VARCHAR(100),
+
+    replica BOOLEAN NOT NULL DEFAULT FALSE,
+
+
+    -- =====================================================
+    -- ESTADO ACTUAL
+    -- =====================================================
+
+    id_location SMALLINT NOT NULL,
+
+    status VARCHAR(30) NOT NULL DEFAULT 'AVAILABLE',
+
+    usable BOOLEAN NOT NULL DEFAULT TRUE,
+
+
+    -- =====================================================
+    -- FECHAS
+    -- =====================================================
+
+    registered_at TIMESTAMPTZ,
+
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+
+    -- =====================================================
+    -- RESTRICCIONES
+    -- =====================================================
+
+    CONSTRAINT uq_stencils_steel_no
+        UNIQUE (steel_no),
+
+    CONSTRAINT fk_stencils_location
+        FOREIGN KEY (id_location)
+        REFERENCES public.locations (id_location),
+
+    CONSTRAINT ck_stencils_steel_no_not_empty
+        CHECK (BTRIM(steel_no) <> ''),
+
+    CONSTRAINT ck_stencils_name_not_empty
+        CHECK (BTRIM(name) <> ''),
+
+    CONSTRAINT ck_stencils_side
+        CHECK (side IN ('TOP', 'BOT')),
+
+    CONSTRAINT ck_stencils_status_not_empty
+        CHECK (BTRIM(status) <> '')
+);

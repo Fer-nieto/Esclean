@@ -1,0 +1,31 @@
+﻿CREATE TABLE public.stencil_damage_reports
+(
+    id_report UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+    id_stencil UUID NOT NULL,
+
+    reported_by UUID NOT NULL,
+
+    id_line SMALLINT,
+
+    damage_type VARCHAR(100),
+
+    description TEXT NOT NULL,
+
+    reported_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT fk_stencil_damage_reports_stencil
+        FOREIGN KEY (id_stencil)
+        REFERENCES public.stencils (id_stencil),
+
+    CONSTRAINT fk_stencil_damage_reports_user
+        FOREIGN KEY (reported_by)
+        REFERENCES public.users (id_user),
+
+    CONSTRAINT fk_stencil_damage_reports_line
+        FOREIGN KEY (id_line)
+        REFERENCES public.production_lines (id_line),
+
+    CONSTRAINT ck_stencil_damage_reports_description
+        CHECK (BTRIM(description) <> '')
+);

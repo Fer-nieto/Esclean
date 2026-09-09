@@ -1,0 +1,24 @@
+﻿CREATE TABLE public.trays
+(
+    id_tray VARCHAR(30) PRIMARY KEY,
+
+    use_model_panel VARCHAR(150),
+
+    use_model_cut VARCHAR(150),
+
+    supplier VARCHAR(100),
+
+    spaces INTEGER NOT NULL,
+
+    active BOOLEAN NOT NULL DEFAULT TRUE,
+
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT ck_trays_id_not_empty
+        CHECK (BTRIM(id_tray) <> ''),
+
+    CONSTRAINT ck_trays_spaces_positive
+        CHECK (spaces > 0)
+);

@@ -1,0 +1,41 @@
+﻿CREATE TABLE public.stencil_wash_movements
+(
+    id_wash UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+    id_stencil UUID NOT NULL,
+
+    washed_by UUID NOT NULL,
+
+    started_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    finished_at TIMESTAMPTZ,
+
+    comments TEXT,
+
+    CONSTRAINT fk_stencil_wash_movements_stencil
+        FOREIGN KEY (id_stencil)
+        REFERENCES public.stencils (id_stencil),
+
+    CONSTRAINT fk_stencil_wash_movements_user
+        FOREIGN KEY (washed_by)
+        REFERENCES public.users (id_user),
+
+    CONSTRAINT ck_stencil_wash_movements_dates
+        CHECK (
+            finished_at IS NULL
+            OR finished_at >= started_at
+        )
+);
+
+CREATE UNIQUE INDEX uq_stencil_wash_active
+ON public.stencil_wash_movements (id_stencil)
+WHERE finished_at IS NULL;
+
+CREATE INDEX idx_stencil_wash_movements_stencil
+ON public.stencil_wash_movements (id_stencil);
+
+CREATE INDEX idx_stencil_wash_movements_started_at
+ON public.stencil_wash_movements (started_at DESC);
+
+CREATE INDEX idx_stencil_wash_movements_finished_at
+ON public.stencil_wash_movements (finished_at);

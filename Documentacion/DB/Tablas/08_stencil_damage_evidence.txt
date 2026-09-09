@@ -1,0 +1,23 @@
+﻿CREATE TABLE public.stencil_damage_evidence
+(
+    id_evidence UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+    id_report UUID NOT NULL,
+
+    file_name VARCHAR(255) NOT NULL,
+
+    storage_path TEXT NOT NULL,
+
+    uploaded_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT fk_stencil_damage_evidence_report
+        FOREIGN KEY (id_report)
+        REFERENCES public.stencil_damage_reports (id_report)
+        ON DELETE CASCADE,
+
+    CONSTRAINT ck_stencil_damage_evidence_file_name
+        CHECK (BTRIM(file_name) <> ''),
+
+    CONSTRAINT ck_stencil_damage_evidence_storage_path
+        CHECK (BTRIM(storage_path) <> '')
+);

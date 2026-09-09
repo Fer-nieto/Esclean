@@ -1,0 +1,38 @@
+﻿CREATE TABLE public.production_lines
+(
+    id_line SMALLSERIAL PRIMARY KEY,
+
+    code VARCHAR(20) NOT NULL,
+
+    name VARCHAR(100) NOT NULL,
+
+    active BOOLEAN NOT NULL DEFAULT TRUE,
+
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT uq_production_lines_code
+        UNIQUE (code),
+
+    CONSTRAINT ck_production_lines_code_not_empty
+        CHECK (BTRIM(code) <> ''),
+
+    CONSTRAINT ck_production_lines_name_not_empty
+        CHECK (BTRIM(name) <> '')
+);
+
+INSERT INTO public.production_lines
+(
+    code,
+    name
+)
+VALUES
+    ('AG01', 'Línea AG01'),
+    ('AG02', 'Línea AG02'),
+    ('AG03', 'Línea AG03'),
+    ('AG04', 'Línea AG04'),
+    ('AG05', 'Línea AG05'),
+    ('AG06', 'Línea AG06'),
+    ('AG07', 'Línea AG07'),
+    ('AG08', 'Línea AG08');

@@ -1,0 +1,6 @@
+﻿El modulo Stenciles cuenta con:
+
+1.- Vista de entregas
+2.- Vista de Reportes de Daño
+3.- Vista de Inventario
+

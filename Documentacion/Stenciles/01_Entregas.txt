@@ -1,0 +1,5 @@
+﻿Vista de Entregas:
+
+1.- Se realizaran registros de movimientos de estenciles entre PISO y CLEANING_ROOM
+2.- Puedes observar los ultimos 20 movimientos
+3.- Veras una tarjeta del estencil que ingresaste con sus informacion 

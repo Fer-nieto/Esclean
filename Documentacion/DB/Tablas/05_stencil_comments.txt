@@ -1,0 +1,23 @@
+﻿CREATE TABLE public.stencil_comments
+(
+    id_comment UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+    id_stencil UUID NOT NULL,
+
+    id_user UUID NOT NULL,
+
+    comment TEXT NOT NULL,
+
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT fk_stencil_comments_stencil
+        FOREIGN KEY (id_stencil)
+        REFERENCES public.stencils (id_stencil),
+
+    CONSTRAINT fk_stencil_comments_user
+        FOREIGN KEY (id_user)
+        REFERENCES public.users (id_user),
+
+    CONSTRAINT ck_stencil_comments_not_empty
+        CHECK (BTRIM(comment) <> '')
+);

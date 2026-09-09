@@ -1,0 +1,37 @@
+﻿CREATE TABLE public.roles
+(
+    id_role SMALLSERIAL PRIMARY KEY,
+
+    code VARCHAR(30) NOT NULL,
+
+    name VARCHAR(80) NOT NULL,
+
+    description VARCHAR(250),
+
+    active BOOLEAN NOT NULL DEFAULT TRUE,
+
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT uq_roles_code
+        UNIQUE (code),
+
+    CONSTRAINT ck_roles_code_not_empty
+        CHECK (BTRIM(code) <> ''),
+
+    CONSTRAINT ck_roles_name_not_empty
+        CHECK (BTRIM(name) <> '')
+);
+
+INSERT INTO public.roles
+(
+    code,
+    name,
+    description
+)
+VALUES
+    ('ADMIN', 'Administrador', 'Acceso completo al sistema'),
+    ('SUPERVISOR', 'Supervisor', 'Consulta y autorización de operaciones'),
+    ('OPERATOR', 'Operador', 'Captura de movimientos y operaciones'),
+    ('VIEWER', 'Consulta', 'Acceso únicamente de lectura');

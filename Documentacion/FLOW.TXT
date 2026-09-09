@@ -1,0 +1,38 @@
+﻿Program.cs
+   ↓
+App.axaml.cs
+   ↓
+MainWindow
+   ↕
+MainViewModel
+   ↓
+StencilViewModel
+   ↕
+StencilView
+   ↓
+StencilDeliveryViewModel
+   ↕
+StencilDeliveryView
+   ↓
+IStencilApiService
+   ↓
+MockStencilApiService
+   ↓
+StencilMovement
+
+DB
+roles
+users
+production_lines
+locations
+stencils
+stencil_movements
+stencil_damage_reports
+stencil_damage_evidence
+stencil_wash_movements
+stencil_inspections
+trays
+tray_movements
+tray_inventory
+squeegees
+squeegee_movements

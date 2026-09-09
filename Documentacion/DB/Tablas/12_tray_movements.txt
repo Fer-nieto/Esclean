@@ -1,0 +1,56 @@
+﻿CREATE TABLE public.tray_movements
+(
+    id_movement UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+    id_tray VARCHAR(30) NOT NULL,
+
+    movement_type VARCHAR(20) NOT NULL DEFAULT 'TRANSFER',
+
+    quantity INTEGER NOT NULL,
+
+    origin_location_id SMALLINT NOT NULL,
+
+    destination_location_id SMALLINT NOT NULL,
+
+    requested_by UUID NOT NULL,
+
+    handled_by UUID,
+
+    movement_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    comments TEXT,
+
+    CONSTRAINT fk_tray_movements_tray
+        FOREIGN KEY (id_tray)
+        REFERENCES public.trays (id_tray),
+
+    CONSTRAINT fk_tray_movements_origin
+        FOREIGN KEY (origin_location_id)
+        REFERENCES public.locations (id_location),
+
+    CONSTRAINT fk_tray_movements_destination
+        FOREIGN KEY (destination_location_id)
+        REFERENCES public.locations (id_location),
+
+    CONSTRAINT fk_tray_movements_requested_by
+        FOREIGN KEY (requested_by)
+        REFERENCES public.users (id_user),
+
+    CONSTRAINT fk_tray_movements_handled_by
+        FOREIGN KEY (handled_by)
+        REFERENCES public.users (id_user),
+
+    CONSTRAINT ck_tray_movements_type
+        CHECK (
+            movement_type IN (
+                'TRANSFER',
+                'SCRAP'
+            )
+        ),
+
+    CONSTRAINT ck_tray_movements_quantity
+        CHECK (quantity > 0),
+
+    CONSTRAINT ck_tray_movements_locations
+        CHECK (origin_location_id <> destination_location_id)
+);

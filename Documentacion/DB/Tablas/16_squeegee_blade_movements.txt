@@ -1,0 +1,42 @@
+﻿CREATE TABLE public.squeegee_blade_movements
+(
+    id_movement UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+    id_blade_type SMALLINT NOT NULL,
+
+    movement_type VARCHAR(20) NOT NULL,
+
+    quantity INTEGER NOT NULL,
+
+    requested_by UUID,
+
+    handled_by UUID NOT NULL,
+
+    comments TEXT,
+
+    movement_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT fk_squeegee_blade_movements_blade
+        FOREIGN KEY (id_blade_type)
+        REFERENCES public.squeegee_blades (id_blade_type),
+
+    CONSTRAINT fk_squeegee_blade_movements_requested_by
+        FOREIGN KEY (requested_by)
+        REFERENCES public.users (id_user),
+
+    CONSTRAINT fk_squeegee_blade_movements_handled_by
+        FOREIGN KEY (handled_by)
+        REFERENCES public.users (id_user),
+
+    CONSTRAINT ck_squeegee_blade_movements_type
+        CHECK (
+            movement_type IN (
+                'IN',
+                'OUT',
+                'SCRAP'
+            )
+        ),
+
+    CONSTRAINT ck_squeegee_blade_movements_quantity
+        CHECK (quantity > 0)
+);
