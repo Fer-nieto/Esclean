@@ -1,0 +1,114 @@
+-- ============================================================
+-- ESCLEAN
+-- ROLES DE INFRAESTRUCTURA PARA POSTGREST
+-- ============================================================
+--
+-- PROPÓSITO
+-- ---------
+-- Define los roles utilizados por PostgREST para conectarse
+-- a PostgreSQL y acceder al schema público de la API.
+--
+-- ARQUITECTURA:
+--
+--   PostgREST
+--       |
+--       | LOGIN
+--       v
+--   esclean_postgrest
+--       |
+--       | SET ROLE / membresía
+--       v
+--   esclean_api
+--       |
+--       v
+--   schema api
+--
+-- IMPORTANTE:
+-- - esclean_postgrest puede iniciar sesión.
+-- - esclean_api NO puede iniciar sesión.
+-- - Las tablas internas de auth no deben exponerse
+--   directamente mediante PostgREST.
+--
+-- ============================================================
+
+
+-- ============================================================
+-- 1. ROL DE LA API
+-- ============================================================
+--
+-- Rol utilizado para representar las peticiones de la API.
+--
+-- NOLOGIN:
+-- Este rol no puede conectarse directamente a PostgreSQL.
+--
+-- NOSUPERUSER:
+-- No tiene privilegios administrativos.
+--
+-- NOCREATEDB / NOCREATEROLE:
+-- No puede crear bases de datos ni roles.
+--
+-- INHERIT:
+-- Mantiene el comportamiento normal de herencia de permisos.
+-- ============================================================
+
+CREATE ROLE esclean_api
+WITH
+    NOLOGIN
+    NOSUPERUSER
+    INHERIT
+    NOCREATEDB
+    NOCREATEROLE;
+
+
+-- ============================================================
+-- 2. ROL DE CONEXIÓN DE POSTGREST
+-- ============================================================
+--
+-- Este es el usuario técnico que utilizará postgrest.exe
+-- para establecer la conexión con PostgreSQL.
+--
+-- LOGIN:
+-- Puede autenticarse contra PostgreSQL.
+--
+-- IMPORTANTE:
+-- La contraseña indicada aquí es solamente un marcador.
+-- Debe sustituirse por una contraseña segura.
+-- ============================================================
+
+CREATE ROLE esclean_postgrest
+WITH
+    LOGIN
+    NOSUPERUSER
+    INHERIT
+    NOCREATEDB
+    NOCREATEROLE
+    PASSWORD 'CAMBIAR_PASSWORD';
+
+
+-- ============================================================
+-- 3. ACCESO AL SCHEMA API
+-- ============================================================
+--
+-- Confirmado actualmente:
+--
+-- esclean_api tiene USAGE sobre el schema api.
+--
+-- USAGE permite encontrar/acceder a los objetos del schema,
+-- pero NO concede automáticamente SELECT, INSERT, UPDATE,
+-- DELETE o EXECUTE.
+-- ============================================================
+
+GRANT USAGE
+ON SCHEMA api
+TO esclean_api;
+
+
+-- ============================================================
+-- FIN
+-- ============================================================
+
+GRANT esclean_api TO esclean_postgrest;
+
+GRANT EXECUTE
+ON FUNCTION api.login(VARCHAR, TEXT)
+TO esclean_api;

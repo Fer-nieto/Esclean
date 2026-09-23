@@ -1,22 +1,14 @@
-﻿CREATE SCHEMA IF NOT EXISTS auth;
+CREATE SCHEMA IF NOT EXISTS auth;
 
 CREATE TABLE auth.roles
 (
     id_role SMALLSERIAL PRIMARY KEY,
-    code VARCHAR(30) NOT NULL,
+    code VARCHAR(30) NOT NULL UNIQUE,
     name VARCHAR(80) NOT NULL,
     description VARCHAR(250),
     active BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-
-    CONSTRAINT uq_roles_code UNIQUE (code),
-
-    CONSTRAINT ck_roles_code_not_empty
-        CHECK (BTRIM(code) <> ''),
-
-    CONSTRAINT ck_roles_name_not_empty
-        CHECK (BTRIM(name) <> '')
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 INSERT INTO auth.roles

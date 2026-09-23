@@ -1,0 +1,31 @@
+CREATE SCHEMA IF NOT EXISTS api;
+
+CREATE OR REPLACE FUNCTION api.login
+(
+    p_employee_number VARCHAR,
+    p_password TEXT
+)
+RETURNS TABLE
+(
+    id_user UUID,
+    employee_number VARCHAR,
+    name VARCHAR,
+    id_role SMALLINT,
+    role_code VARCHAR,
+    role_name VARCHAR
+)
+LANGUAGE sql
+SECURITY DEFINER
+AS $$
+    SELECT
+        l.id_user,
+        l.employee_number,
+        l.name,
+        l.id_role,
+        l.role_code,
+        l.role_name
+    FROM auth.login(
+        p_employee_number,
+        p_password
+    ) AS l;
+$$;

@@ -1,0 +1,17 @@
+CREATE TABLE auth.users
+(
+    id_user UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    employee_number VARCHAR(20) NOT NULL UNIQUE,
+    name VARCHAR(150) NOT NULL,
+    password_hash TEXT NOT NULL,
+    id_role SMALLINT NOT NULL,
+    active BOOLEAN NOT NULL DEFAULT TRUE,
+    last_login_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+ALTER TABLE auth.users
+ADD CONSTRAINT fk_users_role
+FOREIGN KEY (id_role)
+REFERENCES auth.roles(id_role);

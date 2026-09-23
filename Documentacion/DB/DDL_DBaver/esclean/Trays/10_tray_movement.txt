@@ -1,0 +1,127 @@
+-- ============================================================
+-- ESCLEAN
+-- TABLA: TRAY MOVEMENTS
+-- ============================================================
+--
+-- PROPÓSITO
+-- ---------
+-- Registra el historial de movimientos de las charolas.
+--
+-- El inventario actual se mantiene en:
+--     esclean.tray_inventory
+--
+-- Esta tabla conserva:
+--     quién
+--     cuándo
+--     qué charola
+--     desde dónde
+--     hacia dónde
+--     cantidad
+--     comentario
+--
+-- ============================================================
+
+CREATE TABLE esclean.tray_movements
+(
+    id_movement BIGSERIAL PRIMARY KEY,
+
+    id_tray VARCHAR(30) NOT NULL,
+
+    origin VARCHAR(30),
+
+    destination VARCHAR(30),
+
+    quantity INTEGER NOT NULL DEFAULT 1,
+
+    comments VARCHAR(500),
+
+    id_user INTEGER NOT NULL,
+
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+
+    -- ========================================================
+    -- RELACIONES
+    -- ========================================================
+
+    CONSTRAINT fk_tray_movements_tray
+        FOREIGN KEY (id_tray)
+        REFERENCES esclean.trays(id_tray),
+
+
+    -- ========================================================
+    -- VALIDACIONES
+    -- ========================================================
+
+    CONSTRAINT ck_tray_movements_quantity
+        CHECK (quantity > 0),
+
+    CONSTRAINT ck_tray_movements_origin
+        CHECK (
+            origin IS NULL
+            OR origin IN (
+                'CLEANING',
+                'CUARTERIAS',
+                'PISO',
+                'SCRAP'
+            )
+        ),
+
+    CONSTRAINT ck_tray_movements_destination
+        CHECK (
+            destination IS NULL
+            OR destination IN (
+                'CLEANING',
+                'CUARTERIAS',
+                'PISO',
+                'SCRAP'
+            )
+        ),
+
+    CONSTRAINT ck_tray_movements_different_location
+        CHECK (
+            origin IS NULL
+            OR destination IS NULL
+            OR origin <> destination
+        )
+);
+
+
+-- ============================================================
+-- COMENTARIOS
+-- ============================================================
+
+COMMENT ON TABLE esclean.tray_movements IS
+'Historial de movimientos de charolas entre ubicaciones.';
+
+
+COMMENT ON COLUMN esclean.tray_movements.id_movement IS
+'Identificador único del movimiento.';
+
+
+COMMENT ON COLUMN esclean.tray_movements.id_tray IS
+'Charola involucrada en el movimiento.';
+
+
+COMMENT ON COLUMN esclean.tray_movements.origin IS
+'Ubicación de origen de la charola.';
+
+
+COMMENT ON COLUMN esclean.tray_movements.destination IS
+'Ubicación destino de la charola.';
+
+
+COMMENT ON COLUMN esclean.tray_movements.quantity IS
+'Cantidad de charolas involucradas en el movimiento.';
+
+
+COMMENT ON COLUMN esclean.tray_movements.comments IS
+'Comentario u observación del movimiento.';
+
+
+COMMENT ON COLUMN esclean.tray_movements.id_user IS
+'Usuario que registró el movimiento.';
+
+
+COMMENT ON COLUMN esclean.tray_movements.created_at IS
+'Fecha y hora en que se registró el movimiento.';

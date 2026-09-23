@@ -1,0 +1,9 @@
+Creacion del rol para que pueda acceder a la funcion de login desde esclean
+
+CREATE ROLE esclean_api NOLOGIN;
+
+GRANT USAGE ON SCHEMA api TO esclean_api;
+
+GRANT EXECUTE
+ON FUNCTION api.login(TEXT, TEXT)
+TO esclean_api;

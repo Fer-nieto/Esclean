@@ -1,0 +1,143 @@
+-- ============================================================
+-- ESCLEAN
+-- TABLA: TRAYS / CHAROLAS
+-- ============================================================
+--
+-- PROPÓSITO
+-- ---------
+-- Define el catálogo maestro de charolas utilizadas en el
+-- proceso de Cleaning Room.
+--
+-- ARQUITECTURA:
+--
+--   PostgREST
+--       |
+--       v
+--      api
+--       |
+--       v
+--    esclean.trays
+--
+-- IMPORTANTE:
+-- - La tabla pertenece al schema esclean.
+-- - No se expone directamente mediante PostgREST.
+-- - El acceso desde la aplicación se realizará mediante
+--   funciones/vistas del schema api.
+-- - Esta tabla representa el catálogo de charolas.
+-- - Los movimientos e historial se manejarán posteriormente
+--   en una tabla independiente.
+--
+-- ============================================================
+
+
+-- ============================================================
+-- 1. TABLA DE CHAROLAS
+-- ============================================================
+--
+-- Cada registro representa una charola identificada
+-- mediante su ID_TRAY.
+--
+-- id_tray:
+-- Identificador único de la charola.
+--
+-- use_model_panel:
+-- Modelo/producto asociado al uso de la charola para panel.
+--
+-- use_model_cut:
+-- Modelo/producto asociado al uso de la charola para cut.
+--
+-- supplier:
+-- Proveedor de la charola.
+--
+-- spaces:
+-- Cantidad de espacios/cavidades disponibles en la charola.
+--
+-- active:
+-- Indica si la charola se encuentra activa en el inventario.
+--
+-- created_at:
+-- Fecha y hora de creación del registro.
+--
+-- updated_at:
+-- Fecha y hora de última actualización.
+-- ============================================================
+
+CREATE TABLE esclean.trays
+(
+    id_tray VARCHAR(30) PRIMARY KEY,
+
+    use_model_panel VARCHAR(150),
+
+    use_model_cut VARCHAR(150),
+
+    supplier VARCHAR(100),
+
+    spaces INTEGER NOT NULL,
+
+    active BOOLEAN NOT NULL DEFAULT TRUE,
+
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+
+    -- ========================================================
+    -- RESTRICCIONES
+    -- ========================================================
+
+    CONSTRAINT ck_trays_id_not_empty
+        CHECK (BTRIM(id_tray) <> ''),
+
+    CONSTRAINT ck_trays_spaces_positive
+        CHECK (spaces > 0)
+);
+
+
+-- ============================================================
+-- 2. COMENTARIOS DE LA TABLA
+-- ============================================================
+
+COMMENT ON TABLE esclean.trays IS
+'Catálogo maestro de charolas utilizadas en el proceso de Cleaning Room.';
+
+
+COMMENT ON COLUMN esclean.trays.id_tray IS
+'Identificador único de la charola.';
+
+
+COMMENT ON COLUMN esclean.trays.use_model_panel IS
+'Modelo o producto para el cual se utiliza la charola en proceso de panel.';
+
+
+COMMENT ON COLUMN esclean.trays.use_model_cut IS
+'Modelo o producto para el cual se utiliza la charola en proceso de cut.';
+
+
+COMMENT ON COLUMN esclean.trays.supplier IS
+'Proveedor de la charola.';
+
+
+COMMENT ON COLUMN esclean.trays.spaces IS
+'Cantidad de espacios o cavidades disponibles en la charola.';
+
+
+COMMENT ON COLUMN esclean.trays.active IS
+'Indica si la charola está activa para operación.';
+
+
+COMMENT ON COLUMN esclean.trays.created_at IS
+'Fecha y hora en que se creó el registro.';
+
+
+COMMENT ON COLUMN esclean.trays.updated_at IS
+'Fecha y hora de la última actualización del registro.';
+
+
+-- ========= Se agrega Nombre =========
+ALTER TABLE esclean.trays
+ADD COLUMN name VARCHAR(100);
+-- ================================
+
+-- ============================================================
+-- 3. FIN
+-- ============================================================

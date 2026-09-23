@@ -1,0 +1,45 @@
+## Esquema de auth ##
+
+CREATE SCHEMA IF NOT EXISTS auth;
+
+CREATE TABLE auth.roles (
+    id SMALLINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR(30) NOT NULL UNIQUE,
+    description VARCHAR(200),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE auth.users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    employee_number VARCHAR(20) NOT NULL UNIQUE,
+    full_name VARCHAR(150) NOT NULL,
+    password_hash TEXT NOT NULL,
+    role_id SMALLINT NOT NULL
+        REFERENCES auth.roles(id),
+    active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+
+#####################
+Logistica de roles
+#####################
+ADMIN
+- Crear usuarios
+- Modificar usuarios
+- Desactivar usuarios
+- Cambiar roles
+- Configuración
+- Todos los movimientos
+
+SUPERVISOR
+- Crear usuarios operativos
+- Realizar movimientos
+- Consultar todo
+
+TECHNICIAN
+- Realizar movimientos
+
+VIEWER
+- Solo consulta

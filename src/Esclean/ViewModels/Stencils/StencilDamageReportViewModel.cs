@@ -14,37 +14,37 @@ public partial class StencilDamageReportViewModel : ViewModelBase
     private readonly IStencilApiService _apiService;
 
     [ObservableProperty]
-    private string steelNo = string.Empty;
+    private string _steelNo = string.Empty;
 
     [ObservableProperty]
-    private string reporter = string.Empty;
+    private string _reporter = string.Empty;
 
     [ObservableProperty]
-    private string selectedLine = "AG01";
+    private string _selectedLine = "AG01";
 
     [ObservableProperty]
-    private string selectedDamageType = "DAÑO EN MALLA";
+    private string _selectedDamageType = "DAÑO EN MALLA";
 
     [ObservableProperty]
-    private string description = string.Empty;
+    private string _description = string.Empty;
 
     [ObservableProperty]
-    private string stencilModel = "-";
+    private string _stencilModel = "-";
 
     [ObservableProperty]
-    private string stencilSide = "-";
+    private string _stencilSide = "-";
 
     [ObservableProperty]
-    private string currentLocation = "-";
+    private string _currentLocation = "-";
 
     [ObservableProperty]
-    private string stencilStatus = "-";
+    private string _stencilStatus = "-";
 
     [ObservableProperty]
-    private string message = "Listo para registrar reporte.";
+    private string _message = "Listo para registrar reporte.";
 
     [ObservableProperty]
-    private bool isBusy;
+    private bool _isBusy;
 
     public ObservableCollection<string> Lines { get; } =
     [
@@ -194,7 +194,7 @@ public partial class StencilDamageReportViewModel : ViewModelBase
         {
             IsBusy = true;
 
-            var reports =
+            var reports = 
                 await _apiService.GetLastDamageReportsAsync(20);
 
             LastDamageReports.Clear();

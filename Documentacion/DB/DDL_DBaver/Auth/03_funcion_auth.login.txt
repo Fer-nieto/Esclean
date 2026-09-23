@@ -1,0 +1,45 @@
+CREATE OR REPLACE FUNCTION auth.login(
+    p_employee_number VARCHAR,
+    p_password TEXT
+)
+RETURNS TABLE
+(
+    id_user UUID,
+    employee_number VARCHAR,
+    name VARCHAR,
+    id_role SMALLINT,
+    role_code VARCHAR,
+    role_name VARCHAR
+)
+LANGUAGE plpgsql
+SECURITY DEFINER
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        u.id_user,
+        u.employee_number,
+        u.name,
+        u.id_role,
+        r.code,
+        r.name
+    FROM auth.users u
+    INNER JOIN auth.roles r
+        ON r.id_role = u.id_role
+    WHERE u.employee_number = p_employee_number
+      AND u.active = TRUE
+      AND r.active = TRUE
+      AND u.password_hash = crypt(
+            p_password,
+            u.password_hash
+          );
+
+    IF FOUND THEN
+        UPDATE auth.users
+        SET
+            last_login_at = NOW(),
+            updated_at = NOW()
+        WHERE auth.users.employee_number = p_employee_number;
+    END IF;
+END;
+$$;

@@ -1,0 +1,52 @@
+-- ============================================================
+-- ESCLEAN
+-- SEED: TRAYS / CHAROLAS
+-- ============================================================
+--
+-- Información inicial proporcionada para el inventario
+-- de charolas.
+--
+-- name:
+-- Identificación/nombre de la charola.
+--
+-- cut_model:
+-- Modelo(s) asociados al uso de la charola.
+--
+-- spaces:
+-- Cantidad de espacios de la charola.
+--
+-- La información de proveedor y uso para panel queda
+-- pendiente para una actualización posterior.
+--
+-- ============================================================
+
+
+INSERT INTO esclean.trays
+(
+    id_tray,
+    name,
+    use_model_panel,
+    use_model_cut,
+    supplier,
+    spaces,
+    active
+)
+VALUES
+    ('T01', 'T01', 'N/A','TPM','N/A', 112,'True'),
+    ('T03', 'T03', 'N/A','Nitro','N/A', 12,'True'),
+    ('T04', 'T04', 'N/A','SSD','N/A', 12,'True'),
+    ('T07', 'T07', 'N/A','UC Module, Jama','N/A', 50,'True'),
+    ('T08', 'T08', 'N/A','UPDB', 'N/A',4,'True'),
+    ('T09', 'T09', 'N/A','SPARROW', 'N/A',2,'True'),
+    ('T13', 'T13', 'N/A','Jupiter, Cordite, Midplane','N/A', 4,'True'),
+    ('T14', 'T14', 'N/A','Noga, ALMOND','N/A', 2,'True'),
+    ('T20', 'T20', 'N/A','Panel Tiger','N/A', 2,'True'),
+    ('T21', 'T21', 'N/A','Panel PDB-12', 'N/A',1,'True'),
+    ('T22', 'T22', 'N/A','Interposer K2V5, Riser K2V6','N/A', 9,'True'),
+    ('T23', 'T23', 'N/A','PDB-12', 'N/A',3,'True'),
+    ('T24', 'T24', 'N/A','NOVA','N/A', 4,'True');
+
+
+-- ============================================================
+-- FIN
+-- ============================================================

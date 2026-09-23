@@ -1,7 +1,10 @@
+using System;
+
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 using Esclean.Services.Api.Stencils;
+using Esclean.Services.Session;
 
 using Esclean.ViewModels.Dashboard;
 using Esclean.ViewModels.Stencils;
@@ -18,7 +21,44 @@ public partial class MainViewModel : ViewModelBase
     // SERVICIOS
     // =========================================================
 
+    private readonly ISessionService _sessionService;
+
     private readonly IStencilApiService _stencilApiService;
+
+
+    // =========================================================
+    // EVENTOS
+    // =========================================================
+
+    public event Action? LogoutRequested;
+
+
+    // =========================================================
+    // USUARIO AUTENTICADO
+    // =========================================================
+
+    public string UserName =>
+        _sessionService.CurrentUser?.Name
+        ?? string.Empty;
+
+
+    public string EmployeeNumber =>
+        _sessionService.CurrentUser?.EmployeeNumber
+        ?? string.Empty;
+
+
+    public string RoleName =>
+        _sessionService.CurrentUser?.RoleName
+        ?? string.Empty;
+
+
+    public string RoleCode =>
+        _sessionService.CurrentUser?.RoleCode
+        ?? string.Empty;
+
+
+    public bool IsAuthenticated =>
+        _sessionService.IsAuthenticated;
 
 
     // =========================================================
@@ -29,7 +69,7 @@ public partial class MainViewModel : ViewModelBase
 
     public StencilViewModel Stencils { get; }
 
-    public TrayViewModel Trays { get; }
+    public TraysViewModel Trays { get; }
 
     public SqueegeeViewModel Squeegees { get; }
 
@@ -55,36 +95,16 @@ public partial class MainViewModel : ViewModelBase
     // CONSTRUCTOR
     // =========================================================
 
-    public MainViewModel()
+    public MainViewModel(
+        ISessionService sessionService)
     {
-        // =====================================================
-        // SERVICIO TEMPORAL
-        // =====================================================
-        //
-        // Actualmente utilizamos un servicio Mock para poder
-        // desarrollar y validar la interfaz sin PostgreSQL.
-        //
-        // Flujo futuro:
-        //
-        // Avalonia
-        //      ↓
-        // StencilApiService
-        //      ↓
-        // HTTP
-        //      ↓
-        // PostgREST
-        //      ↓
-        // PostgreSQL
-        //
-        // =====================================================
+        _sessionService =
+            sessionService;
+
 
         _stencilApiService =
             new MockStencilApiService();
 
-
-        // =====================================================
-        // CREAR MÓDULOS
-        // =====================================================
 
         Dashboard =
             new DashboardViewModel();
@@ -92,11 +112,12 @@ public partial class MainViewModel : ViewModelBase
 
         Stencils =
             new StencilViewModel(
-                _stencilApiService);
+                _stencilApiService
+            );
 
 
         Trays =
-            new TrayViewModel();
+            new TraysViewModel();
 
 
         Squeegees =
@@ -110,10 +131,6 @@ public partial class MainViewModel : ViewModelBase
         Settings =
             new SettingsViewModel();
 
-
-        // =====================================================
-        // VISTA INICIAL
-        // =====================================================
 
         currentView =
             Dashboard;
@@ -207,5 +224,18 @@ public partial class MainViewModel : ViewModelBase
 
         CurrentSection =
             "CONFIGURACIÓN";
+    }
+
+
+    // =========================================================
+    // LOGOUT
+    // =========================================================
+
+    [RelayCommand]
+    private void Logout()
+    {
+        _sessionService.EndSession();
+
+        LogoutRequested?.Invoke();
     }
 }

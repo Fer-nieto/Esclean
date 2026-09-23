@@ -1,0 +1,17 @@
+Los usuarios de la aplicacion se daran de alta directamente en la base de datos y tendran diferentes roles.
+DEspues de fase de pruebas se agregara la opcion de agregar usaurios desde la aplicacion solo a las personas con el rol
+
+Auth:
+    auth.users:
+        id unico uuid
+        nombre Completo
+        numero de empleado
+        contraseña hassh
+        id_rol asignado
+        Created_at
+        Updated_at
+    auth.rol ("Propuesta Base")
+        Admin, control de toda la aplicacion
+        Supervisor, Capas de agregar usuario y hacer todos los movimientos
+        Tecnico, solo movimientos, entregas etc
+        Viwer, visualizador de informacion y movimientos nada de movimientos

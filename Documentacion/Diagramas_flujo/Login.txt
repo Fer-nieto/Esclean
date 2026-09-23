@@ -1,0 +1,69 @@
+flowchart TB
+
+    subgraph UI["UI / Avalonia"]
+        LW[LoginWindow.axaml]
+        MW[MainWindow.axaml]
+    end
+
+    subgraph VM["ViewModels"]
+        LVM[LoginViewModel.cs]
+        MVM[MainViewModel.cs]
+    end
+
+    subgraph SERVICES["Servicios"]
+        IAS[IAuthApiService.cs]
+        AS[AuthApiService.cs]
+
+        ISS[ISessionService.cs]
+        SS[SessionService.cs]
+    end
+
+    subgraph MODELS["Models"]
+        LR[LoginRequest.cs]
+        US[UserSession.cs]
+    end
+
+    subgraph APP["Aplicación"]
+        APPFILE[App.axaml.cs]
+    end
+
+    subgraph API["Backend"]
+        PGR[PostgREST]
+        APILOGIN[api.login]
+        AUTHLOGIN[auth.login]
+        USERS[auth.users]
+        ROLES[auth.roles]
+    end
+
+    APPFILE --> LW
+    LW --> LVM
+
+    LVM --> IAS
+    IAS --> AS
+
+    AS --> LR
+    AS --> PGR
+
+    PGR --> APILOGIN
+    APILOGIN --> AUTHLOGIN
+    AUTHLOGIN --> USERS
+    AUTHLOGIN --> ROLES
+
+    PGR --> AS
+    AS --> US
+
+    LVM --> SS
+    SS --> US
+
+    LVM -->|LoginSucceeded| APPFILE
+
+    APPFILE --> MW
+    APPFILE --> MVM
+
+    MVM --> ISS
+    ISS --> SS
+
+    MW --> MVM
+
+    MVM -->|LogoutRequested| APPFILE
+    APPFILE --> LW

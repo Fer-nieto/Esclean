@@ -1,0 +1,90 @@
+################# ROLES ###################
+INSERT INTO auth.roles (
+    name,
+    description
+)
+VALUES
+(
+    'ADMIN',
+    'Control total de la aplicación, usuarios y configuración'
+),
+(
+    'SUPERVISOR',
+    'Puede administrar usuarios y realizar movimientos operativos'
+),
+(
+    'TECHNICIAN',
+    'Puede realizar movimientos operativos'
+),
+(
+    'VIEWER',
+    'Solo puede consultar información'
+);
+
+################ USERS ##############################
+
+-- ============================================================
+-- ESCLEAN
+-- SEED: auth.users
+-- Contraseña temporal para pruebas: 123456
+--
+-- IMPORTANTE:
+-- En producción password_hash deberá contener un hash real.
+-- ============================================================
+
+INSERT INTO auth.users (
+    employee_number,
+    full_name,
+    password_hash,
+    role_id,
+    active
+)
+SELECT
+    v.employee_number,
+    v.full_name,
+    '123456',
+    r.id,
+    TRUE
+FROM (
+    VALUES
+        ('100260', 'Sara Anahi Ibarra González'),
+        ('100585', 'Daniela Elizabeth Mena Flores'),
+        ('100662', 'Kevin Alexis Pardo Del Real'),
+        ('102362', 'Ana Luz Rodriguez Villarreal'),
+        ('104157', 'Juan Pablo Garcia Ochoa'),
+        ('106858', 'Adriana Lizeth Carlos Santoyo'),
+        ('107169', 'Michelle Bustos Hernandez'),
+        ('108020', 'Olga Ximena Quintero Campos'),
+        ('108040', 'Eber Leonel Dominguez Chavez'),
+        ('109408', 'Mireya Carolina Martinez Uribe'),
+        ('110611', 'Eduardo Rodriguez Bolaños'),
+        ('110928', 'Jerson Hugo Leon De La Rosa'),
+        ('112002', 'Jose Alberto Sanchez Lambaren'),
+        ('112326', 'Rafael Gonzalez Gonzalez Torres'),
+        ('113174', 'Lucero Sarai Cano Vazquez'),
+        ('114050', 'Brayan Eduardo Zamora Garcia'),
+        ('114144', 'Cesar Garcia Sandoval'),
+        ('115733', 'Layla Yajaira Becerril Garcia'),
+        ('116208', 'Francisco Javier Trejo Soto'),
+        ('116209', 'Oscar Didier Rios Vasquez'),
+        ('116431', 'Ruben Torres Suarez'),
+        ('116742', 'Yanali Hernandez Pulido'),
+        ('116830', 'Fernando Hernández Nieto'),
+        ('117081', 'Cesar Manuel Gonzalez Salgado'),
+        ('117567', 'Juan Carlos Lopez Barajas'),
+        ('117794', 'Miguel Angel Flores Rodriguez'),
+        ('117923', 'Oscar Yerath Hernandez Flores'),
+        ('118374', 'Yulissa Orozco Sanchez'),
+        ('118375', 'Elisa Jacqueline Guadiana Lara'),
+        ('122893', 'Juan Manuel Eduardo Gutierrez Olvera'),
+        ('125533', 'Ricardo Velasco Zaragoza'),
+        ('127948', 'Evelyn Yadira Arechiga Meza'),
+        ('132861', 'Cesar Zapien Perez'),
+        ('145741', 'Moises Hernández Tejeda'),
+        ('146317', 'Daniel Martinez Aguilera')
+) AS v (
+    employee_number,
+    full_name
+)
+CROSS JOIN auth.roles r
+WHERE r.name = 'TECHNICIAN';

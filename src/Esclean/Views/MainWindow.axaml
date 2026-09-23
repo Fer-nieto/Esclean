@@ -151,20 +151,21 @@
                     ColumnDefinitions="*,1,125">
 
 
-                    <!-- DATOS USUARIO -->
+                    <!-- ================================================== -->
+                    <!-- DATOS USUARIO                                      -->
+                    <!-- ================================================== -->
 
                     <StackPanel
                         Grid.Column="0"
-
                         VerticalAlignment="Center"
-
                         HorizontalAlignment="Right"
-
                         Margin="0,0,18,0">
 
 
+                        <!-- NOMBRE DEL USUARIO -->
+
                         <TextBlock
-                            Text="USUARIO DE PRUEBA"
+                            Text="{Binding UserName}"
 
                             FontSize="12"
                             FontWeight="Bold"
@@ -174,21 +175,55 @@
                             HorizontalAlignment="Right"/>
 
 
-                        <TextBlock
-                            Text="Empleado 102345 • ADMIN"
+                        <!-- EMPLEADO / ROL -->
 
-                            FontSize="10"
-
-                            Foreground="{DynamicResource EscleanTextMuted}"
+                        <StackPanel
+                            Orientation="Horizontal"
 
                             HorizontalAlignment="Right"
 
-                            Margin="0,3,0,0"/>
+                            Margin="0,3,0,0">
+
+
+                            <TextBlock
+                                Text="Empleado "
+
+                                FontSize="10"
+
+                                Foreground="{DynamicResource EscleanTextMuted}"/>
+
+
+                            <TextBlock
+                                Text="{Binding EmployeeNumber}"
+
+                                FontSize="10"
+
+                                Foreground="{DynamicResource EscleanTextMuted}"/>
+
+
+                            <TextBlock
+                                Text="  •  "
+
+                                FontSize="10"
+
+                                Foreground="{DynamicResource EscleanTextMuted}"/>
+
+
+                            <TextBlock
+                                Text="{Binding RoleName}"
+
+                                FontSize="10"
+
+                                Foreground="{DynamicResource EscleanIceBlue}"/>
+
+                        </StackPanel>
 
                     </StackPanel>
 
 
-                    <!-- SEPARADOR -->
+                    <!-- ================================================== -->
+                    <!-- SEPARADOR                                          -->
+                    <!-- ================================================== -->
 
                     <Border
                         Grid.Column="1"
@@ -198,7 +233,9 @@
                         Margin="0,17"/>
 
 
-                    <!-- HORA / VERSION TEMPORAL -->
+                    <!-- ================================================== -->
+                    <!-- VERSION                                            -->
+                    <!-- ================================================== -->
 
                     <StackPanel
                         Grid.Column="2"
@@ -212,7 +249,6 @@
                             Text="ESCLEAN"
 
                             FontSize="9"
-
                             FontWeight="Bold"
 
                             Foreground="{DynamicResource EscleanTextMuted}"/>
@@ -222,7 +258,6 @@
                             Text="v1.0"
 
                             FontSize="18"
-
                             FontWeight="Bold"
 
                             Foreground="{DynamicResource EscleanIceBlue}"/>
@@ -279,8 +314,6 @@
                     Grid.Row="1">
 
 
-                    <!-- DASHBOARD -->
-
                     <Button
                         Content="◉    DASHBOARD"
 
@@ -288,8 +321,6 @@
 
                         Command="{Binding ShowDashboardCommand}"/>
 
-
-                    <!-- STENCILES -->
 
                     <Button
                         Content="▤    STENCILES"
@@ -299,8 +330,6 @@
                         Command="{Binding ShowStencilsCommand}"/>
 
 
-                    <!-- CHAROLAS -->
-
                     <Button
                         Content="▦    CHAROLAS"
 
@@ -308,8 +337,6 @@
 
                         Command="{Binding ShowTraysCommand}"/>
 
-
-                    <!-- SQUEEGEES -->
 
                     <Button
                         Content="⇆    SQUEEGEES"
@@ -319,8 +346,6 @@
                         Command="{Binding ShowSqueegeesCommand}"/>
 
 
-                    <!-- REPORTES -->
-
                     <Button
                         Content="▥    REPORTES"
 
@@ -328,8 +353,6 @@
 
                         Command="{Binding ShowReportsCommand}"/>
 
-
-                    <!-- CONFIGURACION -->
 
                     <Button
                         Content="⚙    CONFIGURACIÓN"
@@ -394,7 +417,7 @@
 
 
                             <TextBlock
-                                Text="DATOS DE PRUEBA"
+                                Text="CONECTADO"
 
                                 Foreground="{DynamicResource EscleanTextMuted}"
 
@@ -404,7 +427,7 @@
 
 
                             <TextBlock
-                                Text="Sin conexión a PostgREST"
+                                Text="PostgREST / PostgreSQL"
 
                                 Foreground="#536879"
 
@@ -417,23 +440,20 @@
                     </Border>
 
 
-                    <!-- SALIR -->
+                    <!-- ================================================== -->
+                    <!-- SALIR                                              -->
+                    <!-- ================================================== -->
 
                     <Button
-                        Content="SALIR"
-
+                        Content="CERRAR SESIÓN"
                         Height="40"
-
                         Background="#261416"
-
                         Foreground="#FF8080"
-
                         BorderBrush="#653238"
                         BorderThickness="1"
-
                         CornerRadius="4"
-
-                        FontWeight="Bold"/>
+                        FontWeight="Bold"
+                        Command="{Binding LogoutCommand}"/>
 
                 </StackPanel>
 
@@ -557,7 +577,9 @@
                 ColumnDefinitions="*,Auto">
 
 
-                <!-- ESTADO -->
+                <!-- ================================================== -->
+                <!-- ESTADO                                             -->
+                <!-- ================================================== -->
 
                 <StackPanel
                     Grid.Column="0"
@@ -594,7 +616,9 @@
                 </StackPanel>
 
 
-                <!-- VERSION -->
+                <!-- ================================================== -->
+                <!-- VERSION                                            -->
+                <!-- ================================================== -->
 
                 <TextBlock
                     Grid.Column="1"
