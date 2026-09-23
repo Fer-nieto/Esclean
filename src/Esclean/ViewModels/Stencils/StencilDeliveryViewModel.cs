@@ -18,16 +18,16 @@ public partial class StencilDeliveryViewModel : ViewModelBase
     // =========================================================
 
     [ObservableProperty]
-    private string steelNo = string.Empty;
+    private string _steelNo = string.Empty;
 
     [ObservableProperty]
-    private string requisitor = string.Empty;
+    private string _requisitor = string.Empty;
 
     [ObservableProperty]
-    private string selectedLine = string.Empty;
+    private string _selectedLine = string.Empty;
 
     [ObservableProperty]
-    private string comments = string.Empty;
+    private string _comments = string.Empty;
 
 
     // =========================================================
@@ -35,7 +35,7 @@ public partial class StencilDeliveryViewModel : ViewModelBase
     // =========================================================
 
     [ObservableProperty]
-    private string movementType = "OUT";
+    private string _movementType = "OUT";
 
 
     // =========================================================
@@ -43,16 +43,16 @@ public partial class StencilDeliveryViewModel : ViewModelBase
     // =========================================================
 
     [ObservableProperty]
-    private string stencilModel = "-";
+    private string _stencilModel = "-";
 
     [ObservableProperty]
-    private string stencilSide = "-";
+    private string _stencilSide = "-";
 
     [ObservableProperty]
-    private string currentLocation = "-";
+    private string _currentLocation = "-";
 
     [ObservableProperty]
-    private string stencilStatus = "-";
+    private string _stencilStatus = "-";
 
 
     // =========================================================
@@ -60,10 +60,10 @@ public partial class StencilDeliveryViewModel : ViewModelBase
     // =========================================================
 
     [ObservableProperty]
-    private string message = "Listo para registrar movimiento.";
+    private string _message = "Listo para registrar movimiento.";
 
     [ObservableProperty]
-    private bool isBusy;
+    private bool _isBusy;
 
 
     // =========================================================
@@ -257,7 +257,7 @@ public partial class StencilDeliveryViewModel : ViewModelBase
             IsBusy = true;
 
             var movements =
-                await _apiService.GetLastMovementsAsync(20);
+                await _apiService.GetLastMovementsAsync(21);
 
 
             LastMovements.Clear();
