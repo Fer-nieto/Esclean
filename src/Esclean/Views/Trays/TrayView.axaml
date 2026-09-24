@@ -3,7 +3,7 @@
     x:DataType="vm:TrayViewModel"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    x:Class="Esclean.Views.Trays.TraysView">
+    x:Class="Esclean.Views.Trays.TrayView">
 
     <Grid RowDefinitions="Auto,Auto,*">
 
@@ -14,13 +14,13 @@
 
             <TextBlock
                 Text="CONTROL DE CHAROLAS"
-                FontSize="26"
+                FontSize="30"
                 FontWeight="Bold"
                 Foreground="{DynamicResource EscleanTextPrimary}"/>
 
             <TextBlock
                 Text="Gestión de inventario y movimientos de charolas"
-                FontSize="12"
+                FontSize="22"
                 Foreground="{DynamicResource EscleanTextMuted}"
                 Margin="0,4,0,0"/>
 
@@ -38,18 +38,19 @@
             Margin="0,0,0,14">
 
             <Grid ColumnDefinitions="*,*,*">
-
                 <Button
                     Grid.Column="0"
-                    Content="INVENTARIO"
-                    Command="{Binding ShowInventoryCommand}"
-                    Height="42"
-                    Margin="2"/>
-
-                <Button
-                    Grid.Column="1"
                     Content="MOVIMIENTOS"
                     Command="{Binding ShowMovementsCommand}"
+                    FontWeight="Bold"
+                    Height="42"
+                    Margin="2"/>
+                
+                <Button
+                    Grid.Column="1"
+                    Content="INVENTARIO"
+                    Command="{Binding ShowInventoryCommand}"
+                    FontWeight="Bold"
                     Height="42"
                     Margin="2"/>
 
@@ -57,11 +58,10 @@
                     Grid.Column="2"
                     Content="CATÁLOGO"
                     Command="{Binding ShowCatalogCommand}"
+                    FontWeight="Bold"
                     Height="42"
                     Margin="2"/>
-
             </Grid>
-
         </Border>
 
 
@@ -73,9 +73,7 @@
             BorderThickness="1"
             CornerRadius="5">
 
-            <ContentControl
-                Content="{Binding CurrentTrayView}"/>
-
+            <ContentControl Content="{Binding CurrentTrayView}"/>
         </Border>
 
     </Grid>

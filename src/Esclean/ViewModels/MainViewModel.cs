@@ -17,54 +17,35 @@ namespace Esclean.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-    // =========================================================
     // SERVICIOS
-    // =========================================================
-
     private readonly ISessionService _sessionService;
 
     private readonly IStencilApiService _stencilApiService;
-
-
-    // =========================================================
+    
     // EVENTOS
-    // =========================================================
-
     public event Action? LogoutRequested;
 
-
-    // =========================================================
     // USUARIO AUTENTICADO
-    // =========================================================
-
     public string UserName =>
         _sessionService.CurrentUser?.Name
         ?? string.Empty;
-
 
     public string EmployeeNumber =>
         _sessionService.CurrentUser?.EmployeeNumber
         ?? string.Empty;
 
-
     public string RoleName =>
         _sessionService.CurrentUser?.RoleName
         ?? string.Empty;
-
-
+    
     public string RoleCode =>
         _sessionService.CurrentUser?.RoleCode
         ?? string.Empty;
 
-
     public bool IsAuthenticated =>
         _sessionService.IsAuthenticated;
-
-
-    // =========================================================
+    
     // MÓDULOS
-    // =========================================================
-
     public DashboardViewModel Dashboard { get; }
 
     public StencilViewModel Stencils { get; }
@@ -78,164 +59,83 @@ public partial class MainViewModel : ViewModelBase
     public SettingsViewModel Settings { get; }
 
 
-    // =========================================================
     // VISTA ACTUAL
-    // =========================================================
-
     [ObservableProperty]
     private ViewModelBase currentView;
-
-
+    
     [ObservableProperty]
-    private string currentSection =
-        "DASHBOARD";
-
-
-    // =========================================================
+    private string currentSection = "DASHBOARD";
+    
     // CONSTRUCTOR
-    // =========================================================
-
     public MainViewModel(
         ISessionService sessionService)
     {
-        _sessionService =
-            sessionService;
+        _sessionService = sessionService;
+        
+        _stencilApiService = new MockStencilApiService();
+        
+        Dashboard = new DashboardViewModel();
+        
+        Stencils = new StencilViewModel(_stencilApiService);
+        
+        Trays = new TrayViewModel();
+        
+        Squeegees = new SqueegeeViewModel();
+        
+        Reports = new ReportsViewModel();
+        
+        Settings = new SettingsViewModel();
 
-
-        _stencilApiService =
-            new MockStencilApiService();
-
-
-        Dashboard =
-            new DashboardViewModel();
-
-
-        Stencils =
-            new StencilViewModel(
-                _stencilApiService
-            );
-
-
-        Trays =
-            new TrayViewModel();
-
-
-        Squeegees =
-            new SqueegeeViewModel();
-
-
-        Reports =
-            new ReportsViewModel();
-
-
-        Settings =
-            new SettingsViewModel();
-
-
-        currentView =
-            Dashboard;
+        currentView = Dashboard;
     }
-
-
-    // =========================================================
+    
     // DASHBOARD
-    // =========================================================
-
     [RelayCommand]
     private void ShowDashboard()
     {
-        CurrentView =
-            Dashboard;
-
-        CurrentSection =
-            "DASHBOARD";
+        CurrentView = Dashboard;
     }
-
-
-    // =========================================================
+    
     // STENCILES
-    // =========================================================
-
     [RelayCommand]
     private void ShowStencils()
     {
-        CurrentView =
-            Stencils;
-
-        CurrentSection =
-            "STENCILES";
+        CurrentView = Stencils;
     }
-
-
-    // =========================================================
+    
     // CHAROLAS
-    // =========================================================
-
     [RelayCommand]
     private void ShowTrays()
     {
-        CurrentView =
-            Trays;
-
-        CurrentSection =
-            "CHAROLAS";
+        CurrentView = Trays;
     }
-
-
-    // =========================================================
+    
     // SQUEEGEES
-    // =========================================================
-
     [RelayCommand]
     private void ShowSqueegees()
     {
-        CurrentView =
-            Squeegees;
-
-        CurrentSection =
-            "SQUEEGEES";
+        CurrentView = Squeegees;
     }
-
-
-    // =========================================================
+    
     // REPORTES
-    // =========================================================
-
     [RelayCommand]
     private void ShowReports()
     {
-        CurrentView =
-            Reports;
-
-        CurrentSection =
-            "REPORTES";
+        CurrentView = Reports;
     }
-
-
-    // =========================================================
+    
     // CONFIGURACIÓN
-    // =========================================================
-
     [RelayCommand]
     private void ShowSettings()
     {
-        CurrentView =
-            Settings;
-
-        CurrentSection =
-            "CONFIGURACIÓN";
+        CurrentView = Settings;
     }
-
-
-    // =========================================================
+    
     // LOGOUT
-    // =========================================================
-
     [RelayCommand]
     private void Logout()
     {
         _sessionService.EndSession();
-
         LogoutRequested?.Invoke();
     }
 }

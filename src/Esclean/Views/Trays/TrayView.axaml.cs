@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace Esclean.Views.Trays;
 
-public partial class TraysView : UserControl
+public partial class TrayView : UserControl
 {
-    public TraysView()
+    public TrayView()
     {
         InitializeComponent();
     }

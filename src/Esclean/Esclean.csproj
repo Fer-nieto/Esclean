@@ -22,4 +22,10 @@
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Trays\TrayCatalogView.axaml.cs">
+      <DependentUpon>TrayCatalogView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

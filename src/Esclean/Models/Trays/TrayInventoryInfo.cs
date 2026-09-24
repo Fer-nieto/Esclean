@@ -1,7 +1,7 @@
 using System;
 namespace Esclean.Models.Trays;
 
-public class TrayInventory
+public class TrayInventoryInfo
 {
     public string IdTray { get; set; } = string.Empty;
 

@@ -20,31 +20,28 @@ public partial class TrayViewModel : ViewModelBase
 
     public TrayViewModel()
     {
-        _inventoryViewModel = new TrayInventoryViewModel();
         _movementsViewModel = new TrayMovementsViewModel();
+        _inventoryViewModel = new TrayInventoryViewModel();
         _catalogViewModel = new TrayCatalogViewModel();
 
-        _currentTrayView = _inventoryViewModel;
-    }
-
-    // INVENTARIO
-
-    [RelayCommand]
-    private void ShowInventory()
-    {
-        CurrentTrayView = _inventoryViewModel;
+        _currentTrayView = _movementsViewModel;
     }
 
     // MOVIMIENTOS
-
     [RelayCommand]
     private void ShowMovements()
     {
         CurrentTrayView = _movementsViewModel;
     }
-
+    
+    // INVENTARIO
+    [RelayCommand]
+    private void ShowInventory()
+    {
+        CurrentTrayView = _inventoryViewModel;
+    }
+    
     // CATÁLOGO
-
     [RelayCommand]
     private void ShowCatalog()
     {

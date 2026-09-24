@@ -2,7 +2,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:vm="using:Esclean.ViewModels.Trays"
-    x:DataType="vm:TrayMovementsViewModel"
+    x:DataType="vm:TrayInventoryViewModel"
     x:Class="Esclean.Views.Trays.TrayInventoryView">
 
     <Grid RowDefinitions="Auto,Auto,*"
@@ -52,26 +52,28 @@
                         Margin="0,0,0,5"/>
 
                     <TextBox
+                        Height="36"
                         PlaceholderText="Buscar charola..."
-                        Height="36"/>
+                        Text="{Binding FilterTrayId}"/>
 
                 </StackPanel>
 
 
-                <!-- MODELO -->
+                <!-- MODELO CUT -->
                 <StackPanel
                     Grid.Column="1"
                     Margin="0,0,10,0">
 
                     <TextBlock
-                        Text="MODELO"
+                        Text="MODELO CUT"
                         FontSize="11"
                         Foreground="{DynamicResource EscleanTextMuted}"
                         Margin="0,0,0,5"/>
 
                     <TextBox
-                        PlaceholderText="Modelo Cut / Panel..."
-                        Height="36"/>
+                        Height="36"
+                        PlaceholderText="Buscar modelo Cut..."
+                        Text="{Binding FilterModel}"/>
 
                 </StackPanel>
 
@@ -89,14 +91,9 @@
 
                     <ComboBox
                         Height="36"
-                        PlaceholderText="Todas">
-
-                        <ComboBoxItem Content="CLEANING"/>
-                        <ComboBoxItem Content="CUARTERIAS"/>
-                        <ComboBoxItem Content="PISO"/>
-                        <ComboBoxItem Content="SCRAP"/>
-
-                    </ComboBox>
+                        ItemsSource="{Binding Locations}"
+                        SelectedItem="{Binding SelectedLocation}"
+                        PlaceholderText="Todas"/>
 
                 </StackPanel>
 
@@ -107,12 +104,12 @@
                     Content="BUSCAR"
                     Height="36"
                     VerticalAlignment="Bottom"
-                    Padding="20,0"/>
+                    Padding="20,0"
+                    Command="{Binding SearchCommand}"/>
 
             </Grid>
 
         </Border>
-
 
         <!-- TABLA -->
         <Border

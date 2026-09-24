@@ -24,19 +24,14 @@ public partial class App : Application
 
     // =========================================================
     // MODO DE ARRANQUE
-    // =========================================================
-    //
     // true  = entra directamente a MainWindow
     // false = utiliza LoginWindow normalmente
     //
     // Para trabajar en la UI:
-    //
     //     private const bool SkipLogin = true;
     //
     // Para regresar al login:
-    //
     //     private const bool SkipLogin = false;
-    //
     // =========================================================
 
     private const bool SkipLogin = true;
@@ -131,20 +126,15 @@ public partial class App : Application
         {
             return;
         }
-
-
-        // =====================================================
+        
         // MAIN VIEWMODEL
-        // =====================================================
 
         var mainViewModel = new MainViewModel(
             _sessionService
         );
 
 
-        // =====================================================
         // MAIN WINDOW
-        // =====================================================
 
         var mainWindow = new MainWindow
         {
