@@ -7,94 +7,51 @@ namespace Esclean.ViewModels.Stencils;
 
 public partial class StencilViewModel : ViewModelBase
 {
-    // =========================================================
     // SERVICIO
-    // =========================================================
-
     private readonly IStencilApiService _apiService;
-
-
-    // =========================================================
+    
     // SUBVISTAS
-    // =========================================================
 
     private readonly StencilDeliveryViewModel _deliveryViewModel;
-
     private readonly StencilDamageReportViewModel _damageReportViewModel;
-
     private readonly StencilInventoryViewModel _inventoryViewModel;
-
-
-    // =========================================================
+    
     // VISTA ACTUAL
-    // =========================================================
-
     [ObservableProperty]
-    private ViewModelBase currentStencilView;
-
-
-    // =========================================================
+    private ViewModelBase _currentStencilView;
+    
     // CONSTRUCTOR
-    // =========================================================
-
-    public StencilViewModel(
-        IStencilApiService apiService)
+    public StencilViewModel(IStencilApiService apiService)
     {
-        _apiService =
-            apiService;
+        _apiService = apiService;
+        
+        _deliveryViewModel = new StencilDeliveryViewModel(_apiService);
 
+        _damageReportViewModel = new StencilDamageReportViewModel(_apiService);
 
-        _deliveryViewModel =
-            new StencilDeliveryViewModel(
-                _apiService);
-
-
-        _damageReportViewModel =
-            new StencilDamageReportViewModel(
-                _apiService);
-
-
-        _inventoryViewModel =
-            new StencilInventoryViewModel();
-
-
-        currentStencilView =
-            _deliveryViewModel;
+        _inventoryViewModel = new StencilInventoryViewModel();
+        
+        _currentStencilView = _deliveryViewModel;
     }
-
-
-    // =========================================================
+    
     // ENTREGAS
-    // =========================================================
-
     [RelayCommand]
     private void ShowDelivery()
     {
-        CurrentStencilView =
-            _deliveryViewModel;
+        CurrentStencilView = _deliveryViewModel;
     }
-
-
-    // =========================================================
+    
     // DAÑOS
-    // =========================================================
-
     [RelayCommand]
     private void ShowDamageReport()
     {
-        CurrentStencilView =
-            _damageReportViewModel;
+        CurrentStencilView = _damageReportViewModel;
     }
-
-
-    // =========================================================
+    
     // INVENTARIO
-    // =========================================================
-
     [RelayCommand]
     private void ShowInventory()
     {
-        CurrentStencilView =
-            _inventoryViewModel;
+        CurrentStencilView = _inventoryViewModel;
     }
 }

@@ -1,0 +1,183 @@
+﻿<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:Esclean.ViewModels.Trays"
+    x:DataType="vm:TrayMovementsViewModel"
+    x:Class="Esclean.Views.Trays.TrayCatalogView">
+
+    <Grid RowDefinitions="Auto,Auto,*"
+          Margin="18">
+
+        <!-- HEADER -->
+        <StackPanel
+            Grid.Row="0"
+            Margin="0,0,0,18">
+
+            <TextBlock
+                Text="CATÁLOGO DE CHAROLAS"
+                FontSize="22"
+                FontWeight="Bold"
+                Foreground="{DynamicResource EscleanTextPrimary}"/>
+
+            <TextBlock
+                Text="Información base de modelos, proveedores y capacidades"
+                FontSize="12"
+                Foreground="{DynamicResource EscleanTextMuted}"
+                Margin="0,4,0,0"/>
+
+        </StackPanel>
+
+
+        <!-- ACCIONES -->
+        <Border
+            Grid.Row="1"
+            Background="#111B24"
+            BorderBrush="{DynamicResource EscleanBorderSoft}"
+            BorderThickness="1"
+            CornerRadius="5"
+            Padding="12"
+            Margin="0,0,0,14">
+
+            <Grid ColumnDefinitions="*,Auto">
+
+                <StackPanel
+                    Grid.Column="0">
+
+                    <TextBlock
+                        Text="CATÁLOGO"
+                        FontSize="11"
+                        Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                    <TextBlock
+                        Text="Modelos y especificaciones de charolas"
+                        FontSize="13"
+                        Margin="0,3,0,0"/>
+
+                </StackPanel>
+
+
+                <Button
+                    Grid.Column="1"
+                    Content="NUEVA CHAROLA"
+                    Height="36"
+                    Padding="20,0"
+                    VerticalAlignment="Center"/>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- TABLA -->
+        <Border
+            Grid.Row="2"
+            Background="#0D151C"
+            BorderBrush="{DynamicResource EscleanBorderSoft}"
+            BorderThickness="1"
+            CornerRadius="5">
+
+            <Grid RowDefinitions="Auto,*">
+
+                <!-- ENCABEZADO -->
+                <Border
+                    Grid.Row="0"
+                    Background="#111B24"
+                    Padding="12,10">
+
+                    <Grid ColumnDefinitions="1.3*,2*,2*,1*,1.5*,Auto">
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Text="ID"
+                            FontWeight="Bold"
+                            FontSize="11"/>
+
+                        <TextBlock
+                            Grid.Column="1"
+                            Text="MODELO"
+                            FontWeight="Bold"
+                            FontSize="11"/>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            Text="PROVEEDOR"
+                            FontWeight="Bold"
+                            FontSize="11"/>
+
+                        <TextBlock
+                            Grid.Column="3"
+                            Text="ESPACIOS"
+                            FontWeight="Bold"
+                            FontSize="11"/>
+
+                        <TextBlock
+                            Grid.Column="4"
+                            Text="TIPO"
+                            FontWeight="Bold"
+                            FontSize="11"/>
+
+                        <TextBlock
+                            Grid.Column="5"
+                            Text="ESTADO"
+                            FontWeight="Bold"
+                            FontSize="11"/>
+
+                    </Grid>
+
+                </Border>
+
+
+                <!-- DATOS TEMPORALES -->
+                <ScrollViewer
+                    Grid.Row="1"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
+
+                    <ItemsControl>
+
+                        <Border
+                            Padding="12,10"
+                            BorderBrush="{DynamicResource EscleanBorderSoft}"
+                            BorderThickness="0,0,0,1">
+
+                            <Grid ColumnDefinitions="1.3*,2*,2*,1*,1.5*,Auto">
+
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Text="TR-0001"/>
+
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Text="A230"/>
+
+                                <TextBlock
+                                    Grid.Column="2"
+                                    Text="Proveedor 01"/>
+
+                                <TextBlock
+                                    Grid.Column="3"
+                                    Text="24"/>
+
+                                <TextBlock
+                                    Grid.Column="4"
+                                    Text="CUT"/>
+
+                                <TextBlock
+                                    Grid.Column="5"
+                                    Text="ACTIVA"/>
+
+                            </Grid>
+
+                        </Border>
+
+                    </ItemsControl>
+
+                </ScrollViewer>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</UserControl>

@@ -1,48 +1,53 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using System.Windows.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Esclean.ViewModels.Trays;
 
-public class TraysViewModel:ViewModelBase
+public partial class TrayViewModel : ViewModelBase
 {
-    public object? CurrentTrayView { get; private set; }
+    // SUBVISTAS
 
-    public ICommand ShowInventoryCommand { get; }
+    private readonly TrayInventoryViewModel _inventoryViewModel;
+    private readonly TrayMovementsViewModel _movementsViewModel;
+    private readonly TrayCatalogViewModel _catalogViewModel;
 
-    public ICommand ShowMovementsCommand { get; }
+    // VISTA ACTUAL
 
-    public ICommand ShowCatalogCommand { get; }
+    [ObservableProperty]
+    private ViewModelBase _currentTrayView;
 
-    public TraysViewModel()
+    // CONSTRUCTOR
+
+    public TrayViewModel()
     {
-        ShowInventoryCommand = new RelayCommand(ShowInventory);
-        ShowMovementsCommand = new RelayCommand(ShowMovements);
-        ShowCatalogCommand = new RelayCommand(ShowCatalog);
+        _inventoryViewModel = new TrayInventoryViewModel();
+        _movementsViewModel = new TrayMovementsViewModel();
+        _catalogViewModel = new TrayCatalogViewModel();
 
-        ShowInventory();
+        _currentTrayView = _inventoryViewModel;
     }
 
+    // INVENTARIO
+
+    [RelayCommand]
     private void ShowInventory()
     {
-        CurrentTrayView = null;
-
-        // Posteriormente:
-        // CurrentTrayView = new TrayInventoryViewModel(...);
+        CurrentTrayView = _inventoryViewModel;
     }
 
+    // MOVIMIENTOS
+
+    [RelayCommand]
     private void ShowMovements()
     {
-        CurrentTrayView = null;
-
-        // Posteriormente:
-        // CurrentTrayView = new TrayMovementsViewModel(...);
+        CurrentTrayView = _movementsViewModel;
     }
 
+    // CATÁLOGO
+
+    [RelayCommand]
     private void ShowCatalog()
     {
-        CurrentTrayView = null;
-
-        // Posteriormente:
-        // CurrentTrayView = new TrayCatalogViewModel(...);
+        CurrentTrayView = _catalogViewModel;
     }
 }

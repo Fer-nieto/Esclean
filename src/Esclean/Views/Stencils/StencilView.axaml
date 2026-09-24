@@ -8,7 +8,6 @@
     <Grid RowDefinitions="Auto,Auto,*">
 
         <!-- ENCABEZADO -->
-
         <StackPanel
             Grid.Row="0"
             Margin="0,0,0,18">
@@ -26,10 +25,8 @@
                 Margin="0,4,0,0"/>
 
         </StackPanel>
-
-
+        
         <!-- SUBMENU -->
-
         <Border
             Grid.Row="1"
             Background="#111B24"
@@ -66,9 +63,7 @@
 
         </Border>
 
-
         <!-- CONTENIDO -->
-
         <Border
             Grid.Row="2"
             Background="#0D151C"

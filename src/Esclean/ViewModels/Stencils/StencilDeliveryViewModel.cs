@@ -12,10 +12,8 @@ public partial class StencilDeliveryViewModel : ViewModelBase
 {
     private readonly IStencilApiService _apiService;
 
-
-    // =========================================================
+    
     // CAMPOS DEL FORMULARIO
-    // =========================================================
 
     [ObservableProperty]
     private string _steelNo = string.Empty;
@@ -30,18 +28,11 @@ public partial class StencilDeliveryViewModel : ViewModelBase
     private string _comments = string.Empty;
 
 
-    // =========================================================
     // MOVIMIENTO
-    // =========================================================
-
     [ObservableProperty]
     private string _movementType = "OUT";
-
-
-    // =========================================================
+    
     // INFORMACIÓN DEL STENCIL
-    // =========================================================
-
     [ObservableProperty]
     private string _stencilModel = "-";
 
@@ -53,23 +44,14 @@ public partial class StencilDeliveryViewModel : ViewModelBase
 
     [ObservableProperty]
     private string _stencilStatus = "-";
-
-
-    // =========================================================
+    
     // ESTADO UI
-    // =========================================================
-
     [ObservableProperty]
     private string _message = "Listo para registrar movimiento.";
 
     [ObservableProperty]
     private bool _isBusy;
-
-
-    // =========================================================
-    // CATÁLOGOS
-    // =========================================================
-
+    
     public ObservableCollection<string> Lines { get; } =
     [
         "AG01",
@@ -82,18 +64,12 @@ public partial class StencilDeliveryViewModel : ViewModelBase
         "AG08"
     ];
 
-
-    // =========================================================
+    
     // TABLA
-    // =========================================================
-
     public ObservableCollection<StencilMovement> LastMovements { get; }
         = [];
-
-
-    // =========================================================
+    
     // CONSTRUCTOR
-    // =========================================================
 
     public StencilDeliveryViewModel(
         IStencilApiService apiService)
@@ -102,22 +78,14 @@ public partial class StencilDeliveryViewModel : ViewModelBase
 
         SelectedLine = "AG01";
     }
-
-
-    // =========================================================
+    
     // INICIALIZACIÓN
-    // =========================================================
-
     public async Task InitializeAsync()
     {
         await LoadLastMovementsAsync();
     }
-
-
-    // =========================================================
+    
     // CONSULTAR STENCIL
-    // =========================================================
-
     [RelayCommand]
     private async Task SearchStencilAsync()
     {
@@ -138,9 +106,7 @@ public partial class StencilDeliveryViewModel : ViewModelBase
             if (stencil is null)
             {
                 ClearStencilInfo();
-
                 Message = "Stencil no encontrado.";
-
                 return;
             }
 
@@ -156,86 +122,55 @@ public partial class StencilDeliveryViewModel : ViewModelBase
             IsBusy = false;
         }
     }
-
-
-    // =========================================================
+    
     // SELECCIONAR SALIDA
-    // =========================================================
-
     [RelayCommand]
     private void SelectOut()
     {
         MovementType = "OUT";
-
         Message = "Movimiento seleccionado: SALIDA.";
     }
-
-
-    // =========================================================
+    
     // SELECCIONAR ENTRADA
-    // =========================================================
-
     [RelayCommand]
     private void SelectIn()
     {
         MovementType = "IN";
-
         Message = "Movimiento seleccionado: ENTRADA.";
     }
-
-
-    // =========================================================
+    
     // CONFIRMAR MOVIMIENTO
-    // =========================================================
-
     [RelayCommand]
     private async Task ConfirmAsync()
     {
         if (!ValidateForm())
             return;
-
         try
         {
             IsBusy = true;
-
             var movement =
                 new StencilMovement
                 {
                     SteelNo = SteelNo.Trim(),
-
                     Requisitor = Requisitor.Trim(),
-
                     Line = SelectedLine,
-
                     MovementType = MovementType,
-
                     Comments = Comments.Trim(),
-
                     Date = DateTime.Now
                 };
 
-
             var success =
-                await _apiService.CreateMovementAsync(
-                    movement);
-
+                await _apiService.CreateMovementAsync(movement);
 
             if (!success)
             {
-                Message =
-                    "No fue posible registrar el movimiento.";
-
+                Message = "No fue posible registrar el movimiento.";
                 return;
             }
 
-
-            Message =
-                "Movimiento registrado correctamente.";
-
-
+            Message = "Movimiento registrado correctamente.";
             ClearForm();
-
-
+            
             await LoadLastMovementsAsync();
         }
         finally
@@ -243,26 +178,18 @@ public partial class StencilDeliveryViewModel : ViewModelBase
             IsBusy = false;
         }
     }
-
-
-    // =========================================================
+    
     // CARGAR ÚLTIMOS MOVIMIENTOS
-    // =========================================================
-
     [RelayCommand]
     private async Task LoadLastMovementsAsync()
     {
         try
         {
             IsBusy = true;
-
             var movements =
                 await _apiService.GetLastMovementsAsync(21);
 
-
             LastMovements.Clear();
-
-
             foreach (var movement in movements)
             {
                 LastMovements.Add(movement);
@@ -274,67 +201,44 @@ public partial class StencilDeliveryViewModel : ViewModelBase
         }
     }
 
-
-    // =========================================================
     // VALIDACIONES
-    // =========================================================
 
     private bool ValidateForm()
     {
         if (string.IsNullOrWhiteSpace(SteelNo))
         {
             Message = "Ingrese el Steel No.";
-
             return false;
         }
-
 
         if (string.IsNullOrWhiteSpace(Requisitor))
         {
-            Message =
-                "Ingrese el número de empleado del requisitor.";
-
+            Message = "Ingrese el número de empleado del requisitor.";
             return false;
         }
-
-
+        
         if (string.IsNullOrWhiteSpace(SelectedLine))
         {
-            Message =
-                "Seleccione una línea.";
-
+            Message = "Seleccione una línea.";
             return false;
         }
-
-
         return true;
     }
-
-
-    // =========================================================
+    
     // LIMPIAR
-    // =========================================================
-
     private void ClearForm()
     {
         SteelNo = string.Empty;
-
         Requisitor = string.Empty;
-
         Comments = string.Empty;
-
         ClearStencilInfo();
     }
-
-
+    
     private void ClearStencilInfo()
     {
         StencilModel = "-";
-
         StencilSide = "-";
-
         CurrentLocation = "-";
-
         StencilStatus = "-";
     }
 }

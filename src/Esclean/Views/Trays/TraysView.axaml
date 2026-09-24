@@ -1,16 +1,13 @@
 <UserControl
+    xmlns:vm="using:Esclean.ViewModels.Trays"
+    x:DataType="vm:TrayViewModel"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:vm="using:Esclean.ViewModels.Trays"
-    x:Class="Esclean.Views.Trays.TraysView"
-    x:DataType="vm:TraysViewModel">
+    x:Class="Esclean.Views.Trays.TraysView">
 
     <Grid RowDefinitions="Auto,Auto,*">
 
-        <!-- ================================================= -->
-        <!-- ENCABEZADO -->
-        <!-- ================================================= -->
-
+        <!-- HEADER -->
         <StackPanel
             Grid.Row="0"
             Margin="0,0,0,18">
@@ -30,10 +27,7 @@
         </StackPanel>
 
 
-        <!-- ================================================= -->
-        <!-- SUBMENU -->
-        <!-- ================================================= -->
-
+        <!-- NAVEGACIÓN -->
         <Border
             Grid.Row="1"
             Background="#111B24"
@@ -71,10 +65,7 @@
         </Border>
 
 
-        <!-- ================================================= -->
         <!-- CONTENIDO -->
-        <!-- ================================================= -->
-
         <Border
             Grid.Row="2"
             Background="#0D151C"

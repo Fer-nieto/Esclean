@@ -22,6 +22,25 @@ public partial class App : Application
     private ISessionService? _sessionService;
     private IAuthApiService? _authApiService;
 
+    // =========================================================
+    // MODO DE ARRANQUE
+    // =========================================================
+    //
+    // true  = entra directamente a MainWindow
+    // false = utiliza LoginWindow normalmente
+    //
+    // Para trabajar en la UI:
+    //
+    //     private const bool SkipLogin = true;
+    //
+    // Para regresar al login:
+    //
+    //     private const bool SkipLogin = false;
+    //
+    // =========================================================
+
+    private const bool SkipLogin = true;
+
 
     public override void Initialize()
     {
@@ -57,15 +76,114 @@ public partial class App : Application
 
 
             // =====================================================
-            // MOSTRAR LOGIN INICIAL
+            // MODO DE ARRANQUE
             // =====================================================
 
-            ShowLoginWindow(
-                desktop
-            );
+            if (SkipLogin)
+            {
+                // -------------------------------------------------
+                // MODO DESARROLLO
+                // -------------------------------------------------
+                //
+                // No se muestra LoginWindow.
+                // Se abre directamente MainWindow.
+                //
+                // -------------------------------------------------
+
+                ShowMainWindowDirect(
+                    desktop
+                );
+            }
+            else
+            {
+                // -------------------------------------------------
+                // MODO NORMAL
+                // -------------------------------------------------
+                //
+                // Se utiliza el flujo real de Login.
+                //
+                // -------------------------------------------------
+
+                ShowLoginWindow(
+                    desktop
+                );
+            }
         }
 
         base.OnFrameworkInitializationCompleted();
+    }
+
+
+    // =========================================================
+    // MOSTRAR MAIN WINDOW DIRECTAMENTE
+    // =========================================================
+    //
+    // Este método se utiliza solamente cuando:
+    //
+    //     SkipLogin = true
+    //
+    // =========================================================
+
+    private void ShowMainWindowDirect(
+        IClassicDesktopStyleApplicationLifetime desktop)
+    {
+        if (_sessionService is null)
+        {
+            return;
+        }
+
+
+        // =====================================================
+        // MAIN VIEWMODEL
+        // =====================================================
+
+        var mainViewModel = new MainViewModel(
+            _sessionService
+        );
+
+
+        // =====================================================
+        // MAIN WINDOW
+        // =====================================================
+
+        var mainWindow = new MainWindow
+        {
+            DataContext = mainViewModel
+        };
+
+
+        // =====================================================
+        // LOGOUT
+        // =====================================================
+        //
+        // Aunque estamos saltando el login al iniciar,
+        // conservamos el comportamiento de Logout.
+        //
+        // =====================================================
+
+        mainViewModel.LogoutRequested += () =>
+        {
+            ShowLoginWindow(
+                desktop
+            );
+
+            mainWindow.Close();
+        };
+
+
+        // =====================================================
+        // VENTANA PRINCIPAL
+        // =====================================================
+
+        desktop.MainWindow =
+            mainWindow;
+
+
+        // =====================================================
+        // MOSTRAR MAIN WINDOW
+        // =====================================================
+
+        mainWindow.Show();
     }
 
 
@@ -139,7 +257,7 @@ public partial class App : Application
 
 
     // =========================================================
-    // MOSTRAR MAIN WINDOW
+    // MOSTRAR MAIN WINDOW DESPUÉS DEL LOGIN
     // =========================================================
 
     private void ShowMainWindow(

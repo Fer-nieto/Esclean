@@ -1,0 +1,229 @@
+﻿<UserControl
+    xmlns:vm="using:Esclean.ViewModels.Trays"
+    x:DataType="vm:TrayMovementsViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="Esclean.Views.Trays.TrayMovementsView">
+
+    <Grid RowDefinitions="Auto,Auto,*"
+          Margin="18">
+
+        <!-- HEADER -->
+        <StackPanel
+            Grid.Row="0"
+            Margin="0,0,0,18">
+
+            <TextBlock
+                Text="MOVIMIENTOS DE CHAROLAS"
+                FontSize="22"
+                FontWeight="Bold"
+                Foreground="{DynamicResource EscleanTextPrimary}"/>
+
+            <TextBlock
+                Text="Registro histórico de entradas, salidas y cambios de ubicación"
+                FontSize="12"
+                Foreground="{DynamicResource EscleanTextMuted}"
+                Margin="0,4,0,0"/>
+
+        </StackPanel>
+
+
+        <!-- FILTROS -->
+        <Border
+            Grid.Row="1"
+            Background="#111B24"
+            BorderBrush="{DynamicResource EscleanBorderSoft}"
+            BorderThickness="1"
+            CornerRadius="5"
+            Padding="12"
+            Margin="0,0,0,14">
+
+            <Grid ColumnDefinitions="2*,2*,2*,Auto">
+
+                <StackPanel
+                    Grid.Column="0"
+                    Margin="0,0,10,0">
+
+                    <TextBlock
+                        Text="ID CHAROLA"
+                        FontSize="11"
+                        Foreground="{DynamicResource EscleanTextMuted}"
+                        Margin="0,0,0,5"/>
+
+                    <TextBox
+                        PlaceholderText="Buscar charola..."
+                        Height="36"/>
+
+                </StackPanel>
+
+
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="0,0,10,0">
+
+                    <TextBlock
+                        Text="MOVIMIENTO"
+                        FontSize="11"
+                        Foreground="{DynamicResource EscleanTextMuted}"
+                        Margin="0,0,0,5"/>
+
+                    <ComboBox
+                        Height="36"
+                        PlaceholderText="Todos">
+
+                        <ComboBoxItem Content="ENTRADA"/>
+                        <ComboBoxItem Content="SALIDA"/>
+                        <ComboBoxItem Content="CAMBIO UBICACIÓN"/>
+
+                    </ComboBox>
+
+                </StackPanel>
+
+
+                <StackPanel
+                    Grid.Column="2"
+                    Margin="0,0,10,0">
+
+                    <TextBlock
+                        Text="UBICACIÓN"
+                        FontSize="11"
+                        Foreground="{DynamicResource EscleanTextMuted}"
+                        Margin="0,0,0,5"/>
+
+                    <ComboBox
+                        Height="36"
+                        PlaceholderText="Todas">
+
+                        <ComboBoxItem Content="CLEANING"/>
+                        <ComboBoxItem Content="CUARTERIAS"/>
+                        <ComboBoxItem Content="PISO"/>
+                        <ComboBoxItem Content="SCRAP"/>
+
+                    </ComboBox>
+
+                </StackPanel>
+
+
+                <Button
+                    Grid.Column="3"
+                    Content="BUSCAR"
+                    Height="36"
+                    VerticalAlignment="Bottom"
+                    Padding="20,0"/>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- TABLA -->
+        <Border
+            Grid.Row="2"
+            Background="#0D151C"
+            BorderBrush="{DynamicResource EscleanBorderSoft}"
+            BorderThickness="1"
+            CornerRadius="5">
+
+            <Grid RowDefinitions="Auto,*">
+
+                <Border
+                    Grid.Row="0"
+                    Background="#111B24"
+                    Padding="12,10">
+
+                    <Grid ColumnDefinitions="1.2*,1*,1.5*,1.5*,1.5*,2*">
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Text="FECHA"
+                            FontWeight="Bold"
+                            FontSize="11"/>
+
+                        <TextBlock
+                            Grid.Column="1"
+                            Text="ID CHAROLA"
+                            FontWeight="Bold"
+                            FontSize="11"/>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            Text="MOVIMIENTO"
+                            FontWeight="Bold"
+                            FontSize="11"/>
+
+                        <TextBlock
+                            Grid.Column="3"
+                            Text="ORIGEN"
+                            FontWeight="Bold"
+                            FontSize="11"/>
+
+                        <TextBlock
+                            Grid.Column="4"
+                            Text="DESTINO"
+                            FontWeight="Bold"
+                            FontSize="11"/>
+
+                        <TextBlock
+                            Grid.Column="5"
+                            Text="USUARIO"
+                            FontWeight="Bold"
+                            FontSize="11"/>
+
+                    </Grid>
+
+                </Border>
+
+
+                <ScrollViewer
+                    Grid.Row="1"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
+
+                    <ItemsControl>
+
+                        <Border
+                            Padding="12,10"
+                            BorderBrush="{DynamicResource EscleanBorderSoft}"
+                            BorderThickness="0,0,0,1">
+
+                            <Grid ColumnDefinitions="1.2*,1*,1.5*,1.5*,1.5*,2*">
+
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Text="23/09/2026 08:30"/>
+
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Text="TR-0001"/>
+
+                                <TextBlock
+                                    Grid.Column="2"
+                                    Text="ENTRADA"/>
+
+                                <TextBlock
+                                    Grid.Column="3"
+                                    Text="PISO"/>
+
+                                <TextBlock
+                                    Grid.Column="4"
+                                    Text="CLEANING"/>
+
+                                <TextBlock
+                                    Grid.Column="5"
+                                    Text="EMP-001"/>
+
+                            </Grid>
+
+                        </Border>
+
+                    </ItemsControl>
+
+                </ScrollViewer>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</UserControl>

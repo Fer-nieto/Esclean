@@ -69,7 +69,7 @@ public partial class MainViewModel : ViewModelBase
 
     public StencilViewModel Stencils { get; }
 
-    public TraysViewModel Trays { get; }
+    public TrayViewModel Trays { get; }
 
     public SqueegeeViewModel Squeegees { get; }
 
@@ -117,7 +117,7 @@ public partial class MainViewModel : ViewModelBase
 
 
         Trays =
-            new TraysViewModel();
+            new TrayViewModel();
 
 
         Squeegees =
