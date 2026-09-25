@@ -23,6 +23,22 @@ public class TrayApiService : ITrayApiService
         _httpClient = httpClient;
     }
 
+    public async Task<List<TrayInventoryInfo>> GetTrayInventoryAsync()
+    {
+        // 1. Hacemos la petición a la ruta correspondiente de tu API (ejemplo: "tray_inventory")
+        var response = await _httpClient.GetAsync("tray_inventory");
+
+        // 2. Si la API falla, devolvemos una lista vacía para evitar que la app se caiga
+        if (!response.IsSuccessStatusCode)
+            return new List<TrayInventoryInfo>();
+
+        // 3. Transformamos el JSON de la API en una lista de C#
+        var inventory = await response.Content.ReadFromJsonAsync<List<TrayInventoryInfo>>(JsonOptions);
+
+        // 4. Devolvemos el inventario o una lista vacía si venía nulo
+        return inventory ?? new List<TrayInventoryInfo>();
+    }
+
     public async Task<TrayInfo?> GetTrayInfoAsync(string idTray)
     {
         if (string.IsNullOrWhiteSpace(idTray))

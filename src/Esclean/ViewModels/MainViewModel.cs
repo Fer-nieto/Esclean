@@ -3,8 +3,10 @@ using System;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-using Esclean.Services.Api.Stencils;
+
 using Esclean.Services.Session;
+using Esclean.Services.Api.Stencils;
+using Esclean.Services.Api.Squeegees;
 
 using Esclean.ViewModels.Dashboard;
 using Esclean.ViewModels.Stencils;
@@ -19,8 +21,8 @@ public partial class MainViewModel : ViewModelBase
 {
     // SERVICIOS
     private readonly ISessionService _sessionService;
-
     private readonly IStencilApiService _stencilApiService;
+    private readonly ISqueegeeApiService _squeegeeApiService;
     
     // EVENTOS
     public event Action? LogoutRequested;
@@ -80,7 +82,7 @@ public partial class MainViewModel : ViewModelBase
         
         Trays = new TrayViewModel();
         
-        Squeegees = new SqueegeeViewModel();
+        Squeegees = new SqueegeeViewModel(_squeegeeApiService);
         
         Reports = new ReportsViewModel();
         

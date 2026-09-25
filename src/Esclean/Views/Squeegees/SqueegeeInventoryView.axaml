@@ -1,0 +1,275 @@
+﻿<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:Esclean.ViewModels.Squeegees"
+    x:Class="Esclean.Views.Squeegees.SqueegeeInventoryView"
+    x:DataType="vm:SqueegeeInventoryViewModel">
+
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <!-- ========================================= -->
+        <!-- ENCABEZADO -->
+        <!-- ========================================= -->
+
+        <Grid
+            Grid.Row="0"
+            ColumnDefinitions="*,Auto"
+            Margin="16,14,16,12">
+
+            <StackPanel Grid.Column="0">
+
+                <TextBlock
+                    Text="INVENTARIO DE NAVAJAS"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Foreground="{DynamicResource EscleanTextPrimary}"/>
+
+                <TextBlock
+                    Text="Existencia actual por tipo de navaja"
+                    FontSize="12"
+                    Foreground="{DynamicResource EscleanTextMuted}"
+                    Margin="0,4,0,0"/>
+
+            </StackPanel>
+
+            <Button
+                Grid.Column="1"
+                Content="ACTUALIZAR"
+                Command="{Binding LoadInventoryCommand}"
+                Height="34"
+                Padding="16,0"/>
+
+        </Grid>
+
+
+        <!-- ========================================= -->
+        <!-- MENSAJE DE ERROR -->
+        <!-- ========================================= -->
+
+        <TextBlock
+            Grid.Row="1"
+            Text="{Binding ErrorMessage}"
+            Margin="16,0,16,10"
+            FontSize="12"
+            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+
+        <!-- ========================================= -->
+        <!-- TABLA -->
+        <!-- ========================================= -->
+
+        <Border
+            Grid.Row="2"
+            Margin="16,0,16,16"
+            Background="#0D151C"
+            BorderBrush="{DynamicResource EscleanBorderSoft}"
+            BorderThickness="1"
+            CornerRadius="4">
+
+            <Grid RowDefinitions="Auto,*">
+
+                <!-- ================================= -->
+                <!-- CABECERA -->
+                <!-- ================================= -->
+
+                <Border
+                    Grid.Row="0"
+                    Background="#111B24"
+                    Padding="10,8">
+
+                    <Grid
+                        ColumnDefinitions="2*,1*,1.5*,0.8*,0.8*,1*,0.7*">
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Text="NAVAJA"
+                            FontWeight="Bold"
+                            FontSize="11"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                        <TextBlock
+                            Grid.Column="1"
+                            Text="TAMAÑO"
+                            FontWeight="Bold"
+                            FontSize="11"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            Text="ESPECIFICACIÓN"
+                            FontWeight="Bold"
+                            FontSize="11"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                        <TextBlock
+                            Grid.Column="3"
+                            Text="EXISTENCIA"
+                            FontWeight="Bold"
+                            FontSize="11"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                        <TextBlock
+                            Grid.Column="4"
+                            Text="MÍNIMO"
+                            FontWeight="Bold"
+                            FontSize="11"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                        <TextBlock
+                            Grid.Column="5"
+                            Text="ESTADO"
+                            FontWeight="Bold"
+                            FontSize="11"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                        <TextBlock
+                            Grid.Column="6"
+                            Text="ACTIVO"
+                            FontWeight="Bold"
+                            FontSize="11"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                    </Grid>
+
+                </Border>
+
+
+                <!-- ================================= -->
+                <!-- DATOS -->
+                <!-- ================================= -->
+
+                <ScrollViewer
+                    Grid.Row="1"
+                    VerticalScrollBarVisibility="Auto">
+
+                    <ItemsControl
+                        ItemsSource="{Binding Inventory}">
+
+                        <ItemsControl.ItemTemplate>
+
+                            <DataTemplate>
+
+                                <Border
+                                    BorderBrush="{DynamicResource EscleanBorderSoft}"
+                                    BorderThickness="0,0,0,1"
+                                    Padding="10,9">
+
+                                    <Grid
+                                        ColumnDefinitions="2*,1*,1.5*,0.8*,0.8*,1*,0.7*">
+
+                                        <!-- NOMBRE -->
+
+                                        <TextBlock
+                                            Grid.Column="0"
+                                            Text="{Binding Name}"
+                                            FontSize="12"
+                                            Foreground="{DynamicResource EscleanTextPrimary}"
+                                            VerticalAlignment="Center"/>
+
+
+                                        <!-- TAMAÑO -->
+
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            Text="{Binding Size}"
+                                            FontSize="12"
+                                            Foreground="{DynamicResource EscleanTextMuted}"
+                                            VerticalAlignment="Center"/>
+
+
+                                        <!-- ESPECIFICACIÓN -->
+
+                                        <TextBlock
+                                            Grid.Column="2"
+                                            Text="{Binding Specification}"
+                                            FontSize="12"
+                                            Foreground="{DynamicResource EscleanTextMuted}"
+                                            TextWrapping="Wrap"
+                                            VerticalAlignment="Center"/>
+
+
+                                        <!-- EXISTENCIA -->
+
+                                        <TextBlock
+                                            Grid.Column="3"
+                                            Text="{Binding CurrentQuantity}"
+                                            FontSize="14"
+                                            FontWeight="Bold"
+                                            Foreground="{DynamicResource EscleanTextPrimary}"
+                                            VerticalAlignment="Center"/>
+
+
+                                        <!-- MÍNIMO -->
+
+                                        <TextBlock
+                                            Grid.Column="4"
+                                            Text="{Binding MinimumQuantity}"
+                                            FontSize="12"
+                                            Foreground="{DynamicResource EscleanTextMuted}"
+                                            VerticalAlignment="Center"/>
+
+
+                                        <!-- ESTADO -->
+
+                                        <TextBlock
+                                            Grid.Column="5"
+                                            FontSize="11"
+                                            FontWeight="Bold"
+                                            VerticalAlignment="Center">
+
+                                            <TextBlock.Styles>
+
+                                                <Style Selector="TextBlock">
+
+                                                    <Setter
+                                                        Property="Text"
+                                                        Value="OK"/>
+
+                                                    <Setter
+                                                        Property="Foreground"
+                                                        Value="{DynamicResource EscleanTextPrimary}"/>
+
+                                                </Style>
+
+                                                <Style
+                                                    Selector="TextBlock.low-stock">
+
+                                                    <Setter
+                                                        Property="Text"
+                                                        Value="BAJO"/>
+
+                                                </Style>
+
+                                            </TextBlock.Styles>
+
+                                        </TextBlock>
+
+
+                                        <!-- ACTIVO -->
+
+                                        <TextBlock
+                                            Grid.Column="6"
+                                            Text="{Binding Active}"
+                                            FontSize="12"
+                                            Foreground="{DynamicResource EscleanTextMuted}"
+                                            VerticalAlignment="Center"/>
+
+                                    </Grid>
+
+                                </Border>
+
+                            </DataTemplate>
+
+                        </ItemsControl.ItemTemplate>
+
+                    </ItemsControl>
+
+                </ScrollViewer>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</UserControl>

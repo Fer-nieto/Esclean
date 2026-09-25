@@ -1,0 +1,90 @@
+﻿<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:Esclean.ViewModels.Squeegees"
+    x:Class="Esclean.Views.Squeegees.SqueegeeView"
+    x:DataType="vm:SqueegeeViewModel">
+
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <!-- ========================================= -->
+        <!-- ENCABEZADO -->
+        <!-- ========================================= -->
+
+        <StackPanel
+            Grid.Row="0"
+            Margin="0,0,0,18">
+
+            <TextBlock
+                Text="CONTROL DE SQUEEGUEES"
+                FontSize="26"
+                FontWeight="Bold"
+                Foreground="{DynamicResource EscleanTextPrimary}"/>
+
+            <TextBlock
+                Text="Gestión de inventario y movimientos de navajas"
+                FontSize="12"
+                Foreground="{DynamicResource EscleanTextMuted}"
+                Margin="0,4,0,0"/>
+
+        </StackPanel>
+
+
+        <!-- ========================================= -->
+        <!-- SUBMENU -->
+        <!-- ========================================= -->
+
+        <Border
+            Grid.Row="1"
+            Background="#111B24"
+            BorderBrush="{DynamicResource EscleanBorderSoft}"
+            BorderThickness="1"
+            CornerRadius="5"
+            Padding="5"
+            Margin="0,0,0,14">
+
+            <Grid ColumnDefinitions="*,*">
+
+                <!-- INVENTARIO -->
+
+                <Button
+                    Grid.Column="0"
+                    Content="INVENTARIO"
+                    Command="{Binding ShowInventoryCommand}"
+                    Height="42"
+                    Margin="2"/>
+
+
+                <!-- MOVIMIENTOS -->
+
+                <Button
+                    Grid.Column="1"
+                    Content="MOVIMIENTOS"
+                    Command="{Binding ShowMovementsCommand}"
+                    Height="42"
+                    Margin="2"/>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- ========================================= -->
+        <!-- CONTENIDO -->
+        <!-- ========================================= -->
+
+        <Border
+            Grid.Row="2"
+            Background="#0D151C"
+            BorderBrush="{DynamicResource EscleanBorderSoft}"
+            BorderThickness="1"
+            CornerRadius="5">
+
+            <ContentControl
+                Content="{Binding CurrentSqueegeeView}"/>
+
+        </Border>
+
+    </Grid>
+
+</UserControl>

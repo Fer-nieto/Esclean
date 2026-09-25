@@ -1,0 +1,235 @@
+﻿<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:Esclean.ViewModels.Squeegees"
+    x:Class="Esclean.Views.Squeegees.SqueegeeMovementView"
+    x:DataType="vm:SqueegeeMovementViewModel">
+
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <!-- ========================================= -->
+        <!-- ENCABEZADO -->
+        <!-- ========================================= -->
+
+        <Grid
+            Grid.Row="0"
+            ColumnDefinitions="*,Auto"
+            Margin="16,14,16,12">
+
+            <StackPanel Grid.Column="0">
+
+                <TextBlock
+                    Text="MOVIMIENTOS"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Foreground="{DynamicResource EscleanTextPrimary}"/>
+
+                <TextBlock
+                    Text="Historial de entradas, salidas y scrap de navajas"
+                    FontSize="12"
+                    Foreground="{DynamicResource EscleanTextMuted}"
+                    Margin="0,4,0,0"/>
+
+            </StackPanel>
+
+            <Button
+                Grid.Column="1"
+                Content="ACTUALIZAR"
+                Command="{Binding LoadMovementsCommand}"
+                Height="34"
+                Padding="16,0"/>
+
+        </Grid>
+
+
+        <!-- ========================================= -->
+        <!-- ESTADO -->
+        <!-- ========================================= -->
+
+        <Border
+            Grid.Row="1"
+            Margin="16,0,16,10"
+            Padding="10"
+            Background="#111B24"
+            BorderBrush="{DynamicResource EscleanBorderSoft}"
+            BorderThickness="1"
+            CornerRadius="4"
+            IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+
+            <TextBlock
+                Text="{Binding ErrorMessage}"
+                Foreground="{DynamicResource EscleanTextMuted}"
+                FontSize="12"/>
+
+        </Border>
+
+
+        <!-- ========================================= -->
+        <!-- TABLA -->
+        <!-- ========================================= -->
+
+        <Border
+            Grid.Row="2"
+            Margin="16,0,16,16"
+            Background="#0D151C"
+            BorderBrush="{DynamicResource EscleanBorderSoft}"
+            BorderThickness="1"
+            CornerRadius="4">
+
+            <Grid RowDefinitions="Auto,*">
+
+                <!-- CABECERA -->
+
+                <Border
+                    Grid.Row="0"
+                    Background="#111B24"
+                    Padding="10,8">
+
+                    <Grid
+                        ColumnDefinitions="1.4*,0.8*,0.7*,1.1*,1.1*,1.2*,2*">
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Text="NAVAJA"
+                            FontWeight="Bold"
+                            FontSize="11"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                        <TextBlock
+                            Grid.Column="1"
+                            Text="TIPO"
+                            FontWeight="Bold"
+                            FontSize="11"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            Text="CANT."
+                            FontWeight="Bold"
+                            FontSize="11"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                        <TextBlock
+                            Grid.Column="3"
+                            Text="SOLICITADO POR"
+                            FontWeight="Bold"
+                            FontSize="11"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                        <TextBlock
+                            Grid.Column="4"
+                            Text="ATENDIDO POR"
+                            FontWeight="Bold"
+                            FontSize="11"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                        <TextBlock
+                            Grid.Column="5"
+                            Text="FECHA"
+                            FontWeight="Bold"
+                            FontSize="11"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                        <TextBlock
+                            Grid.Column="6"
+                            Text="COMENTARIOS"
+                            FontWeight="Bold"
+                            FontSize="11"
+                            Foreground="{DynamicResource EscleanTextMuted}"/>
+
+                    </Grid>
+
+                </Border>
+
+
+                <!-- DATOS -->
+
+                <ScrollViewer
+                    Grid.Row="1"
+                    VerticalScrollBarVisibility="Auto">
+
+                    <ItemsControl
+                        ItemsSource="{Binding Movements}">
+
+                        <ItemsControl.ItemTemplate>
+
+                            <DataTemplate>
+
+                                <Border
+                                    BorderBrush="{DynamicResource EscleanBorderSoft}"
+                                    BorderThickness="0,0,0,1"
+                                    Padding="10,9">
+
+                                    <Grid
+                                        ColumnDefinitions="1.4*,0.8*,0.7*,1.1*,1.1*,1.2*,2*">
+
+                                        <TextBlock
+                                            Grid.Column="0"
+                                            Text="{Binding BladeName}"
+                                            FontSize="12"
+                                            Foreground="{DynamicResource EscleanTextPrimary}"
+                                            VerticalAlignment="Center"/>
+
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            Text="{Binding MovementType}"
+                                            FontSize="12"
+                                            FontWeight="Bold"
+                                            Foreground="{DynamicResource EscleanTextPrimary}"
+                                            VerticalAlignment="Center"/>
+
+                                        <TextBlock
+                                            Grid.Column="2"
+                                            Text="{Binding Quantity}"
+                                            FontSize="12"
+                                            Foreground="{DynamicResource EscleanTextPrimary}"
+                                            VerticalAlignment="Center"/>
+
+                                        <TextBlock
+                                            Grid.Column="3"
+                                            Text="{Binding RequestedByName}"
+                                            FontSize="12"
+                                            Foreground="{DynamicResource EscleanTextMuted}"
+                                            VerticalAlignment="Center"/>
+
+                                        <TextBlock
+                                            Grid.Column="4"
+                                            Text="{Binding HandledByName}"
+                                            FontSize="12"
+                                            Foreground="{DynamicResource EscleanTextMuted}"
+                                            VerticalAlignment="Center"/>
+
+                                        <TextBlock
+                                            Grid.Column="5"
+                                            Text="{Binding MovementAt}"
+                                            FontSize="12"
+                                            Foreground="{DynamicResource EscleanTextMuted}"
+                                            VerticalAlignment="Center"/>
+
+                                        <TextBlock
+                                            Grid.Column="6"
+                                            Text="{Binding Comments}"
+                                            FontSize="12"
+                                            Foreground="{DynamicResource EscleanTextMuted}"
+                                            TextWrapping="Wrap"
+                                            VerticalAlignment="Center"/>
+
+                                    </Grid>
+
+                                </Border>
+
+                            </DataTemplate>
+
+                        </ItemsControl.ItemTemplate>
+
+                    </ItemsControl>
+
+                </ScrollViewer>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</UserControl>
